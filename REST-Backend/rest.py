@@ -66,7 +66,7 @@ def diagnose():
         img.save("testimage.png", "PNG")
         # TO-DO 
         # akses model
-        #
+        
         result = Result(
             image=image_bytes,
             cancer_proba=0.75,
@@ -75,15 +75,18 @@ def diagnose():
 
         db.session.add(result)
         db.session.commit()
-
-        #result.image = content['image']
-        #response = make_response(
-        #    json.dumps(result),
-        #    200
-        #)
-        #response.headers["Content-Type"]='application/json'
+        json_res = {
+            "cancer_proba":0.75,  
+            "user_id":1
+        }
+        result.image = image_bytes
+        response = make_response(
+            json.dumps(json_res),
+            200
+        )
+        response.headers["Content-Type"]='application/json'
         
-        #return response
+        return response
     if request.method == 'DELETE':
         pass
     return "test"

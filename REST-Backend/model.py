@@ -4,12 +4,12 @@ from dataclasses import dataclass
 
 db = SQLAlchemy()
 
-#@dataclass
+@dataclass
 class Result(db.Model):
-#    id:int
-#    image:str
-#    cancer_proba:float
-#    user_id:int
+    id:int
+    image:str
+    cancer_proba:float
+    user_id:int
 
     id           = db.Column(db.Integer, primary_key=True)
     image        = db.Column(db.LargeBinary(length=(2**32)-1))
