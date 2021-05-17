@@ -60,32 +60,49 @@ def diagnose():
     if request.method == 'PUT':
         pass
     if request.method == 'POST':
+        # First we access the image that have been 
+        # converted into string from frontend
+        # and change it into bytes object
         image_bytes = base64.b64decode(content['image'])
+        # Then we change it into BytesIO so 
+        # PIL can open and save the image
+        # PIL is Python Imaging Library
         stream = io.BytesIO(image_bytes)
+        # Open and save image using PIL.Image Class
         img = Image.open(stream)
         img.save("testimage.png", "PNG")
         # TO-DO 
         # akses model
         
+        # Create a sample result
+        # If the app is finished the cancer_proba is from model
+        # and user_id from frontend
+        # result is bytes (aka blob)
         result = Result(
             image=image_bytes,
             cancer_proba=0.75,
             user_id=1
         )
 
+        # Save the Result object to database
         db.session.add(result)
         db.session.commit()
+
+        # and create a json object to be 
+        # attached to the response 
         json_res = {
             "cancer_proba":0.75,  
             "user_id":1
         }
-        result.image = image_bytes
+
+        # Create the response
         response = make_response(
             json.dumps(json_res),
             200
         )
         response.headers["Content-Type"]='application/json'
         
+        # Send the response
         return response
     if request.method == 'DELETE':
         pass
