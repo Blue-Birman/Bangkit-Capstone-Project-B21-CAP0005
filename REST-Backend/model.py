@@ -10,11 +10,14 @@ class Result(db.Model):
     image:str
     cancer_proba:float
     user_id:int
+    date_added:datetime
 
     id           = db.Column(db.Integer, primary_key=True)
-    image        = db.Column(db.LargeBinary(length=(2**32)-1))
+    image        = db.Column(db.LargeBinary(length=(2**24)-1))
     cancer_proba = db.Column(db.Float)
     user_id      = db.Column(db.Integer, db.ForeignKey('user.id'))
+    date_added   = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
 
 @dataclass
 class User(db.Model):
@@ -29,3 +32,56 @@ class User(db.Model):
     email        = db.Column(db.String(100), nullable=False, unique=True) 
     pass_hash    = db.Column(db.String(100), nullable=False)
     date_added   = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+class History(db.Model):
+    id:int
+    user_id:int
+    activity:str
+    date_added:datetime
+
+    id         = db.Column(db.Integer, primary_key=True)
+    user_id    = db.Column(db.Integer, db.ForeignKey('user.id'))
+    activity   = db.Column(db.String(200), nullable=False)
+    date_added = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+
+class Article(db.Model):
+    id:int
+    title:str
+    image:str
+    article:str
+    date_added:datetime
+
+    id         = db.Column(db.Integer, primary_key=True)
+    title      = db.Column(db.String(100), nullable=False)
+    image      = db.Column(db.LargeBinary(length=(2**32)-1))
+    article    = db.Column(db.String(2**24-1))
+    date_added = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+
+class Comment(db.Model):
+    id:int
+    user_id:int
+    article_id:int
+    activity:str
+    date_added:datetime
+
+    id         = db.Column(db.Integer, primary_key=True)
+    user_id    = db.Column(db.Integer, db.ForeignKey('user.id'))
+    article_id = db.Column(db.Integer, db.ForeignKey('article.id'))
+    comment    = db.Column(db.String(500), nullable=False)
+    date_added = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+
+class Token(db.Model):
+    id:int
+    user_id:int
+    token:str
+    is_active:bool
+    date_added:datetime
+
+    id         = db.Column(db.Integer, primary_key=True)
+    user_id    = db.Column(db.Integer, db.ForeignKey('user.id'))
+    token      = db.Column(db.String(255), nullable=False)
+    is_active  = db.Column(db.Boolean, default=True)
+    date_added = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
