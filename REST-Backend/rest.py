@@ -1,5 +1,6 @@
 from flask import Blueprint, request, make_response, json
 from model import db, Result, User
+from predict import predict_image
 from PIL import Image
 import io
 import base64
@@ -73,14 +74,14 @@ def diagnose():
         img.save("testimage.png", "PNG")
         # TO-DO 
         # akses model
-        
+        prediction = predict_image(img)
         # Create a sample result
         # If the app is finished the cancer_proba is from model
         # and user_id from frontend
         # result is bytes (aka blob)
         result = Result(
             image=image_bytes,
-            cancer_proba=0.75,
+            cancer_proba=prediction,
             user_id=1
         )
 
@@ -91,7 +92,7 @@ def diagnose():
         # and create a json object to be 
         # attached to the response 
         json_res = {
-            "cancer_proba":0.75,  
+            "cancer_proba":prediction,  
             "user_id":1
         }
 
