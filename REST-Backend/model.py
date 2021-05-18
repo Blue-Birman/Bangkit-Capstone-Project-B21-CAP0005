@@ -33,6 +33,8 @@ class User(db.Model):
     pass_hash    = db.Column(db.String(100), nullable=False)
     date_added   = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
+
+@dataclass
 class History(db.Model):
     id:int
     user_id:int
@@ -45,6 +47,7 @@ class History(db.Model):
     date_added = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
 
+@dataclass
 class Article(db.Model):
     id:int
     title:str
@@ -59,6 +62,7 @@ class Article(db.Model):
     date_added = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
 
+@dataclass
 class Comment(db.Model):
     id:int
     user_id:int
@@ -73,6 +77,7 @@ class Comment(db.Model):
     date_added = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
 
+@dataclass
 class Token(db.Model):
     id:int
     user_id:int
@@ -82,6 +87,6 @@ class Token(db.Model):
 
     id         = db.Column(db.Integer, primary_key=True)
     user_id    = db.Column(db.Integer, db.ForeignKey('user.id'))
-    token      = db.Column(db.String(255), nullable=False)
+    token      = db.Column(db.String(64), nullable=False, unique=True)
     is_active  = db.Column(db.Boolean, default=True)
     date_added = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
