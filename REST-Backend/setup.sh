@@ -17,6 +17,7 @@ pip3 install flask-sqlalchemy
 pip3 install pymysql
 pip3 install cryptography
 pip3 install pillow
+pip3 install tensorflow
 
 # export the application entry point 
 export FLASK_APP=app.py
