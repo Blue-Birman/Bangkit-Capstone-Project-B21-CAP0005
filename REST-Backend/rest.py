@@ -1,5 +1,6 @@
 from flask import Blueprint, request, make_response, json
-from model import db, Result, User
+from sqlalchemy import desc
+from model import db, Result, User, Token, Article, Comment, History
 from predict import predict_image
 from PIL import Image
 import io
@@ -43,8 +44,11 @@ def diagnose():
         content = request.json
         is_auth = authenticate(content["email"], content["token"]) 
         if is_auth :
-            user = User.query.filter_by(email=content["email"])
-            results = Result.query.filter_by(id=user.id).order_by(desc(Result.date_added)).all()
+            user = User.query.filter_by(email=content["email"]).first()
+            results = list(Result.query.filter_by(user_id=user.id).order_by(desc(Result.date_added)).all())
+            for result in results : 
+                del result.image
+            print(results)
             response = make_response(
                 json.dumps(results),
                 200
@@ -54,15 +58,15 @@ def diagnose():
     if request.method == 'POST':
         content = request.json
         is_auth = authenticate(content["email"], content["token"]) 
-        if is_auth :
+        if is_auth or content["email"]==None:
             # First we access the image that have been 
             # converted into string from frontend
             # and change it into bytes object
-            image_bytes = base64.b64decode(content['image'])
+            image_blob = string_base64_to_blob(content["image"])
             # Then we change it into BytesIO so 
             # PIL can open and save the image
             # PIL is Python Imaging Library
-            stream = io.BytesIO(image_bytes)
+            stream = io.BytesIO(image_blob)
             # Open and image using PIL.Image Class
             img = Image.open(stream)
             # TO-DO 
@@ -73,26 +77,32 @@ def diagnose():
             # and user_id from frontend
             # result is bytes (aka blob)
 
-            user = User.query.filter_by(email=content["email"])
+            user = User.query.filter_by(email=content["email"]).first()
+            
+            if is_auth :
+                result = Result(
+                    image=image_blob,
+                    cancer_proba=prediction,
+                    user_id=user.id
+                )
 
-            result = Result(
-                image=image_bytes,
-                cancer_proba=prediction,
-                user_id=user.id
-            )
-
-            # Save the Result object to database
-            db.session.add(result)
-            db.session.commit()
+                # Save the Result object to database
+                db.session.add(result)
+                db.session.commit()
 
             # and create a json object to be 
             # attached to the response 
             json_res = {
-                "cancer_proba": prediction,  
-                "user_id"     : user.id,
-                "email"       : user.email,
-                "name"        : user.name
+                "cancer_proba" : prediction
             }
+
+            if is_auth : 
+                json_res = {
+                    "cancer_proba": prediction,  
+                    "user_id"     : user.id,
+                    "email"       : user.email,
+                    "name"        : user.name
+                }
 
             # Create the response
             response = make_response(
@@ -113,13 +123,17 @@ def retrieve_result_route():
         content = request.json  
         is_auth = authenticate(content["email"], content["token"])  
         if is_auth:
-            result = Result.query.filter_by(id=content["result_id"])
-            response = make_response(
-                json.dumps(result),
-                200
-            )
-            return response
-        #TODO if auth failed response
+            result = Result.query.filter_by(id=content["result_id"]).first()
+            user = User.query.filter_by(email=content["email"]).first()
+            if user.id == result.user_id :  
+                result.image = blob2string_base64(result.image)
+                response = make_response(
+                    json.dumps(result),
+                    200
+                )
+                return response
+            #TODO if auth failed response
+        #TODO if not your result
     #TODO default response
 
 
@@ -139,11 +153,11 @@ def articles_route():
 def article_route():
     if request.method == 'GET':
         content = request.json
-        article = Article.query.filter_by(id=content["article_id"])
-        comment = Comment.query.filter_by(article_id=content["article_id"])
+        article = Article.query.filter_by(id=content["article_id"]).first()
+        comments = list(Comment.query.filter_by(article_id=content["article_id"]))
         data = {
             "article" : article,
-            "comment" : comment
+            "comments" : comments
         }
         response = make_response(
             json.dumps(data),
@@ -159,7 +173,7 @@ def comment_route():
         content = request.json
         is_auth = authenticate(content["email"], content["token"])
         if is_auth :
-            user = User.query.filter_by(email=content["email"])
+            user = User.query.filter_by(email=content["email"]).first()
             comment = Comment(
                 user_id = user.id,
                 article_id = content["article_id"],
@@ -201,7 +215,7 @@ def logout_route():
         is_auth = authenticate(content["email"], content["token"]) 
         if is_auth :
             deactivate_token(content["token"])
-            token = Token.query.filter_by(token=content["token"])
+            token = Token.query.filter_by(token=content["token"]).first()
             response = make_response(
                 json.dumps(token),
                 200
@@ -211,27 +225,29 @@ def logout_route():
     #TODO default return
         
 
-def authenticate(email, token):
-    user = User.query.filter_by(email=email)
-    token = Token.query.filter_by(token=token)
-    if token.user_id == user.id and token.is_valid:
+def authenticate(email, token_str):
+    if email == None:
+        return False
+    user = User.query.filter_by(email=email).first()
+    token = Token.query.filter_by(token=token_str).first()
+    if token.user_id == user.id and token.is_active:
         return True
     return False
 
 
 def auth_pass(email, pass_hash):
-    user = User.query.filter_by(email=email)
+    user = User.query.filter_by(email=email).first()
     if pass_hash == user.pass_hash:
         return True
     return False
     
 
 def generate_token(email):
-    user = User.query.filter_by(email=email)
+    user = User.query.filter_by(email=email).first()
     token_str = ''.join(random.choices(string.ascii_uppercase + string.digits, k = token_size))
     token = Token(
         user_id=user.id,
-        token=token
+        token=token_str
     )
     db.session.add(token)
     db.session.commit()
@@ -239,6 +255,14 @@ def generate_token(email):
 
 
 def deactivate_token(token_str):
-    token = Token.query.filter_by(token=token_str)
+    token = Token.query.filter_by(token=token_str).first()
     token.is_active = False
     db.session.commit()
+
+
+def blob2string_base64(blob_item):
+    return base64.encodebytes(blob_item).decode('ascii')
+
+def string_base64_to_blob(string_base64):
+    return base64.b64decode(string_base64)
+    

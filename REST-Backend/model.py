@@ -57,8 +57,8 @@ class Article(db.Model):
 
     id         = db.Column(db.Integer, primary_key=True)
     title      = db.Column(db.String(100), nullable=False)
-    image      = db.Column(db.LargeBinary(length=(2**32)-1))
-    article    = db.Column(db.String(2**24-1))
+    image      = db.Column(db.LargeBinary(length=(2**24)-1))
+    article    = db.Column(db.Text(2**24-1))
     date_added = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
 
 
@@ -67,7 +67,7 @@ class Comment(db.Model):
     id:int
     user_id:int
     article_id:int
-    activity:str
+    comment:str
     date_added:datetime
 
     id         = db.Column(db.Integer, primary_key=True)
