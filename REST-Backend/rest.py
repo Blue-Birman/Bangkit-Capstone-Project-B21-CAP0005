@@ -220,7 +220,7 @@ def login_route():
                 200
             )
             return response
-        #TODO return if failed to create token
+        return default_500_server_error_response
     return default_404_not_found_response
 
     
