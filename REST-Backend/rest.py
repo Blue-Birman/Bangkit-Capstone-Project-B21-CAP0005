@@ -10,13 +10,26 @@ import random
 
 token_size = 64
 
+default_404_not_found_response = make_response(
+    json.dumps({"message" : "404 Error, Not Found"}),
+    404
+)
+default_404_not_found_response.headers["Content-Type"]='application/json'
+
+default_403_forbidden_response = make_response(
+    json.dumps({"message" : "403 Error, Forbidden"}),
+    403
+)
+default_403_forbidden_response.headers["Content-Type"]='application/json'
+
+default_500_server_error_response = make_response(
+    json.dumps({"message" : "500 Error, Server error"}),
+    500
+)
+default_500_server_error_response.headers["Content-Type"]='application/json'
 
 
 api = Blueprint('rest_api', __name__)
-@api.route('/')
-def index():
-    return "index"
-
 @api.route('/user', methods=['POST'])
 def user_route():
     if request.method == 'POST':
@@ -37,6 +50,8 @@ def user_route():
         response.headers["Content-Type"]='application/json'
         
         return response
+    return default_404_not_found_response
+
 
 @api.route('/diagnose', methods=['GET', 'POST'])
 def diagnose():
@@ -54,7 +69,7 @@ def diagnose():
                 200
             )
             return response
-        #TODO if auth fails response
+        return default_403_forbidden_response
     if request.method == 'POST':
         content = request.json
         is_auth = authenticate(content["email"], content["token"]) 
@@ -113,8 +128,8 @@ def diagnose():
             
             # Send the response
             return response
-        #TODO if auth fails response
-    #TODO default response
+        return default_403_forbidden_response
+    return default_404_not_found_response
 
 
 @api.route("/retrieve_result", methods=["GET"])
@@ -132,9 +147,9 @@ def retrieve_result_route():
                     200
                 )
                 return response
-            #TODO if auth failed response
-        #TODO if not your result
-    #TODO default response
+            return default_403_forbidden_response
+        return default_403_forbidden_response
+    return default_404_not_found_response
 
 
 @api.route("/articles", methods=["GET"])
@@ -147,6 +162,7 @@ def articles_route():
             200
         )
         return response
+    return default_404_not_found_response
 
 
 @api.route("/article", methods=["GET"])
@@ -164,7 +180,7 @@ def article_route():
             200
         )
         return response
-    #TODO default return
+    return default_404_not_found_response
 
 
 @api.route("/comment", methods=["POST"])
@@ -188,8 +204,8 @@ def comment_route():
                 200
             )
             return response
-        #TODO return if failed to create token
-    #TODO default return
+        return default_500_server_error_response
+    return default_404_not_found_response
 
 
 @api.route("/login", methods=["POST"])
@@ -205,7 +221,7 @@ def login_route():
             )
             return response
         #TODO return if failed to create token
-    #TODO default return
+    return default_404_not_found_response
 
     
 @api.route("/logout", methods=["POST"])
@@ -222,8 +238,15 @@ def logout_route():
             )
             return response
         #TODO return if failed to create token
-    #TODO default return
+    return default_404_not_found_response
         
+
+@api.route('/', defaults={'path': ''})
+@api.route('/<path:path>')
+def catch_all(path):
+    return default_404_not_found_response
+
+
 
 def authenticate(email, token_str):
     if email == None:
