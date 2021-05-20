@@ -1,6 +1,6 @@
 pip install virtualenv
-python -m venv \venv
-\env\Scripts\activate.bat
+python -m venv .\venv
+venv\Scripts\activate.bat
 
 pip install flask
 pip install flask-sqlalchemy
