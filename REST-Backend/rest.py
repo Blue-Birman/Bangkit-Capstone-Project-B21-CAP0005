@@ -10,24 +10,6 @@ import random
 
 token_size = 64
 
-default_404_not_found_response = make_response(
-    json.dumps({"message" : "404 Error, Not Found"}),
-    404
-)
-default_404_not_found_response.headers["Content-Type"]='application/json'
-
-default_403_forbidden_response = make_response(
-    json.dumps({"message" : "403 Error, Forbidden"}),
-    403
-)
-default_403_forbidden_response.headers["Content-Type"]='application/json'
-
-default_500_server_error_response = make_response(
-    json.dumps({"message" : "500 Error, Server error"}),
-    500
-)
-default_500_server_error_response.headers["Content-Type"]='application/json'
-
 
 api = Blueprint('rest_api', __name__)
 @api.route('/user', methods=['POST'])
@@ -50,6 +32,12 @@ def user_route():
         response.headers["Content-Type"]='application/json'
         
         return response
+
+    default_404_not_found_response = make_response(
+    json.dumps({"message" : "404 Error, Not Found"}),
+        404
+    )
+    default_404_not_found_response.headers["Content-Type"]='application/json'
     return default_404_not_found_response
 
 
@@ -128,6 +116,11 @@ def diagnose():
             
             # Send the response
             return response
+        default_403_forbidden_response = make_response(
+        json.dumps({"message" : "403 Error, Forbidden"}),
+            403
+        )
+        default_403_forbidden_response.headers["Content-Type"]='application/json'
         return default_403_forbidden_response
     return default_404_not_found_response
 
@@ -147,8 +140,18 @@ def retrieve_result_route():
                     200
                 )
                 return response
-            return default_403_forbidden_response
+        default_403_forbidden_response = make_response(
+        json.dumps({"message" : "403 Error, Forbidden"}),
+            403
+        )
+        default_403_forbidden_response.headers["Content-Type"]='application/json'
         return default_403_forbidden_response
+        
+    default_404_not_found_response = make_response(
+    json.dumps({"message" : "404 Error, Not Found"}),
+        404
+    )
+    default_404_not_found_response.headers["Content-Type"]='application/json'
     return default_404_not_found_response
 
 
@@ -162,6 +165,12 @@ def articles_route():
             200
         )
         return response
+        
+    default_404_not_found_response = make_response(
+    json.dumps({"message" : "404 Error, Not Found"}),
+        404
+    )
+    default_404_not_found_response.headers["Content-Type"]='application/json'
     return default_404_not_found_response
 
 
@@ -180,6 +189,12 @@ def article_route():
             200
         )
         return response
+        
+    default_404_not_found_response = make_response(
+    json.dumps({"message" : "404 Error, Not Found"}),
+        404
+    )
+    default_404_not_found_response.headers["Content-Type"]='application/json'
     return default_404_not_found_response
 
 
@@ -204,7 +219,18 @@ def comment_route():
                 200
             )
             return response
-        return default_500_server_error_response
+        default_403_forbidden_response = make_response(
+        json.dumps({"message" : "403 Error, Forbidden"}),
+            403
+        )
+        default_403_forbidden_response.headers["Content-Type"]='application/json'
+        
+        return default_403_forbidden_response
+    default_404_not_found_response = make_response(
+    json.dumps({"message" : "404 Error, Not Found"}),
+        404
+    )
+    default_404_not_found_response.headers["Content-Type"]='application/json'
     return default_404_not_found_response
 
 
@@ -221,6 +247,12 @@ def login_route():
             )
             return response
         return default_500_server_error_response
+        
+    default_404_not_found_response = make_response(
+    json.dumps({"message" : "404 Error, Not Found"}),
+        404
+    )
+    default_404_not_found_response.headers["Content-Type"]='application/json'
     return default_404_not_found_response
 
     
@@ -237,13 +269,30 @@ def logout_route():
                 200
             )
             return response
-        #TODO return if failed to create token
+       
+        default_500_server_error_response = make_response(
+            json.dumps({"message" : "500 Error, Server error"}),
+            500
+        )   
+        default_500_server_error_response.headers["Content-Type"]='application/json'
+        return default_500_server_error_response
+        
+    default_404_not_found_response = make_response(
+    json.dumps({"message" : "404 Error, Not Found"}),
+        404
+    )
+    default_404_not_found_response.headers["Content-Type"]='application/json'
     return default_404_not_found_response
         
 
 @api.route('/', defaults={'path': ''})
 @api.route('/<path:path>')
-def catch_all(path):
+def catch_all(path): 
+    default_404_not_found_response = make_response(
+    json.dumps({"message" : "404 Error, Not Found"}),
+        404
+    )
+    default_404_not_found_response.headers["Content-Type"]='application/json'
     return default_404_not_found_response
 
 
