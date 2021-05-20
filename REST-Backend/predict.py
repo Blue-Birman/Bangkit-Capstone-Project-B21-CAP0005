@@ -1,9 +1,9 @@
 from tensorflow.keras.models import load_model
 from numpy import asarray
-from tensorflow.keras.applications.vgg16 import preprocess_input
+from tensorflow.keras.applications.inception_v3 import preprocess_input
 
 
-MODEL_NAME = "model/test_model"
+MODEL_NAME = "model/Model_V1"
 
 model = load_model(MODEL_NAME)
 
