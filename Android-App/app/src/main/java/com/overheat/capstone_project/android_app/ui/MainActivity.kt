@@ -1,4 +1,4 @@
-package com.overheat.capstone_project.android_app
+package com.overheat.capstone_project.android_app.ui
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.overheat.capstone_project.android_app.R
 import com.overheat.capstone_project.android_app.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
