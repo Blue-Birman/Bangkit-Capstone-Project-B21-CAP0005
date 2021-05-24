@@ -160,6 +160,9 @@ def articles_route():
     if request.method == 'GET':
         content = request.json
         articles = Article.query.order_by(desc(Article.date_added)).all()
+        for artilce in articles:
+            if article.image != None:
+                article.image = blob2string_base64(article.image)
         response = make_response(
             json.dumps(articles),
             200
@@ -180,10 +183,14 @@ def article_route():
         content = request.json
         article = Article.query.filter_by(id=content["article_id"]).first()
         comments = list(Comment.query.filter_by(article_id=content["article_id"]))
+        if article.image != None:
+            article.image = blob2string_base64(article.image)
+        
         data = {
             "article" : article,
             "comments" : comments
         }
+        
         response = make_response(
             json.dumps(data),
             200
