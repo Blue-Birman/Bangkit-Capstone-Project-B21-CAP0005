@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bg_item_faqs"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="8dp">
+
+    <TextView
+        android:id="@+id/tv_faq_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="sans-serif"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        tools:text="@tools:sample/lorem"
+        app:drawableEndCompat="@drawable/ic_arrow_down_black" />
+
+    <TextView
+        android:id="@+id/tv_faq_answer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:textSize="12sp"
+        android:textColor="@color/grey"
+        android:paddingTop="4dp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="@tools:sample/lorem" />
+</LinearLayout>
