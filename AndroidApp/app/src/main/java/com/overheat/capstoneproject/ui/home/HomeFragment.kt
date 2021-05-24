@@ -61,12 +61,14 @@ class HomeFragment : Fragment() {
         )
 
         with(binding.carouselView) {
-            pageCount = sampleImages.size
+            // Set image listener must be called before page count
+            // If not, it will cause error -> View must set ImageListener or ViewListener
             setImageListener { position, imageView ->
                 Glide.with(this@HomeFragment)
                     .load(sampleImages[position])
                     .into(imageView)
             }
+            pageCount = sampleImages.size
         }
     }
 
