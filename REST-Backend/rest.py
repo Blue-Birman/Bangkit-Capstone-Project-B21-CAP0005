@@ -160,7 +160,7 @@ def articles_route():
     if request.method == 'GET':
         content = request.json
         articles = Article.query.order_by(desc(Article.date_added)).all()
-        for artilce in articles:
+        for article in articles:
             if article.image != None:
                 article.image = blob2string_base64(article.image)
         response = make_response(
