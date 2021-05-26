@@ -2,16 +2,19 @@ package com.overheat.capstoneproject.ui.home
 
 import android.os.Bundle
 import android.view.*
-import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.overheat.capstoneproject.R
+import com.overheat.capstoneproject.core.data.Resource
+import com.overheat.capstoneproject.core.data.source.remote.network.ApiResponse
+import com.overheat.capstoneproject.core.ui.HomeListFaqAdapter
 import com.overheat.capstoneproject.databinding.FragmentHomeBinding
-import com.synnapps.carouselview.ImageListener
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
 
+    private val viewModel: HomeViewModel by viewModel()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
@@ -46,6 +49,21 @@ class HomeFragment : Fragment() {
 
     private fun prepareRecyclerView() {
         val adapter = HomeListFaqAdapter()
+        viewModel.faqs.observe(viewLifecycleOwner, { listFaqs ->
+            if (listFaqs != null) {
+                when(listFaqs) {
+                    is Resource.Success -> {
+                        adapter.setDataFaqs(listFaqs.data)
+                    }
+                    is Resource.Loading -> {
+                        // Loading
+                    }
+                    is Resource.Error -> {
+                        // Error
+                    }
+                }
+            }
+        })
 
         with(binding.rvFaqs) {
             this.layoutManager = LinearLayoutManager(context)

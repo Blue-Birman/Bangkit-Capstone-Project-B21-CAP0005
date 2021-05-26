@@ -1,0 +1,34 @@
+{
+	"data": [
+		{
+			"id": 1,
+			"question": "Why is skin important?",
+			"answer": "Skin is the body's largest organ. It regulates body temperature, protects against injury, and prevents infection. The skin contains nerves that sense cold, heat, pain, pressure, and touch."
+		},
+		{
+			"id": 2,
+			"question": "What are the layers of the skin?",
+			"answer": "The skin consists of a thin outer layer (epidermis), a thicker middle layer (dermis), and the deeper layer (subcutaneous tissue or hypodermis)."
+		},
+		{
+			"id": 3,
+			"question": "What is the difference between first-, second-, and third-degree burns?",
+			"answer": "First-degree burns are red and painful. They swell a little and turn white when you press on them. The skin over the burn may peel off in a day or two. This is the least severe type of burn, affecting only the outer layer of skin. Second-degree burns have blisters and are painful. They affect both the outer and thicker middle layer of skin. Third-degree burns cause damage to all layers of the skin. The burned skin looks white or charred. These burns may cause little or no pain if nerves are damaged."
+		},
+		{
+			"id": 4,
+			"question": "How can I treat sunburn?",
+			"answer": "The following can help ease the discomfort of sunburn:\n- Apply a cold compress to the affected area(s).\n- Take Tylenol (acetaminophen) to relieve discomfort or aspirin or other nonsteroidal anti-inflammatory medicines (NSAIDS, like Motrin) to relieve discomfort and inflammation.\n- Apply a cooling gel or ointment containing aloe vera, or an over-the-counter 1% hydrocortisone cream to the affected area.\nIn cases of severe sunburn or sunstroke, see your doctor immediately."
+		},
+		{
+			"id": 5,
+			"question": "How can skin problems be diagnosed?",
+			"answer": "Doctors can diagnose many skin problems by discussing the symptoms and examining the skin. Sometimes, additional testing may be necessary. A variety of skin tests are available to help diagnose skin problems such as bacterial, viral, or fungal skin infections. A skin biopsy can be performed to tell the difference between rashes, malignant (cancerous) cells, and benign (noncancerous) growths."
+		},
+		{
+			"id": 6,
+			"question": "What causes acne?",
+			"answer": "The exact cause of acne is not known, but one important factor is an increase in hormones called androgens. These male sex hormones increase in both boys and girls during puberty. Some things that can make acne worse include friction caused by leaning on or rubbing the skin, harsh scrubbing, picking or squeezing blemishes, and emotional stress. Acne is not caused by chocolate or other kinds of foods."
+		}
+	]
+}

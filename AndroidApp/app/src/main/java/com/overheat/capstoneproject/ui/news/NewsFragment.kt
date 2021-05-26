@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.overheat.capstoneproject.R
+import com.overheat.capstoneproject.core.ui.NewsListAdapter
 import com.overheat.capstoneproject.databinding.FragmentNewsBinding
 
 class NewsFragment : Fragment() {
