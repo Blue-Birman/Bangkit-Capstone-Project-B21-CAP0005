@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
+        android:id="@+id/navigation_photo"
+        android:name="com.overheat.capstoneproject.ui.photo.PhotoFragment"
+        android:label="@string/title_photo"
+        tools:layout="@layout/fragment_photo" />
+
+    <fragment
         android:id="@+id/navigation_news"
         android:name="com.overheat.capstoneproject.ui.news.NewsFragment"
         android:label="@string/title_news"

@@ -4,8 +4,8 @@ import android.app.Application
 import com.overheat.capstoneproject.core.di.databaseModule
 import com.overheat.capstoneproject.core.di.remoteDataSourceModule
 import com.overheat.capstoneproject.core.di.repositoryModule
-import com.overheat.capstoneproject.ui.di.useCaseModule
-import com.overheat.capstoneproject.ui.di.viewModelModule
+import com.overheat.capstoneproject.di.useCaseModule
+import com.overheat.capstoneproject.di.viewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

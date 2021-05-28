@@ -34,11 +34,11 @@ class NewsFragment : Fragment() {
     }
 
     private fun prepareRecyclerViewNews() {
-        val adapter = NewsListAdapter()
+        val newsAdapter = NewsListAdapter()
 
         with(binding.rvNews) {
-            this.layoutManager = LinearLayoutManager(activity)
-            this.adapter = adapter
+            layoutManager = LinearLayoutManager(activity)
+            this.adapter = newsAdapter
         }
     }
 

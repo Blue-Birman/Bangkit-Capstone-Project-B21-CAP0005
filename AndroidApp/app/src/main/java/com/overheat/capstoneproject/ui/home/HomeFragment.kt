@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
 
     private fun prepareRecyclerView() {
         val adapter = HomeListFaqAdapter()
-        viewModel.faqs.observe(viewLifecycleOwner, { listFaqs ->
+        viewModel.faqs().observe(viewLifecycleOwner, { listFaqs ->
             if (listFaqs != null) {
                 when(listFaqs) {
                     is Resource.Success -> {

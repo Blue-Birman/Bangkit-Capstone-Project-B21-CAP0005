@@ -1,7 +1,8 @@
-package com.overheat.capstoneproject.ui.di
+package com.overheat.capstoneproject.di
 
 import com.overheat.capstoneproject.core.domain.usecase.SkinCancerInteractor
 import com.overheat.capstoneproject.core.domain.usecase.SkinCancerUseCase
+import com.overheat.capstoneproject.ui.photo.PhotoViewModel
 import com.overheat.capstoneproject.ui.home.HomeViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
