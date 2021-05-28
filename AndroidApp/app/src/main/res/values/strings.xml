@@ -14,6 +14,9 @@
     <string name="subtitle_profile">Profile:</string>
     <string name="subtitle_history">History:</string>
 
+    <string name="button_take_pic">Take photo</string>
+    <string name="photo_iv_desc">Image captured</string>
+
     <string name="text_full_name">Full Name:</string>
     <string name="text_sex">Sex:</string>
     <string name="text_date_of_birth">Date of Birth:</string>
