@@ -82,7 +82,7 @@ class PhotoFragment : Fragment() {
     private fun getImage() : String {
         val byteArrayOutputStream = ByteArrayOutputStream()
         val bitmap = (binding.ivPhoto.drawable).toBitmap()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 150, byteArrayOutputStream)
 
         val imageBytes = byteArrayOutputStream.toByteArray()
         val imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT)

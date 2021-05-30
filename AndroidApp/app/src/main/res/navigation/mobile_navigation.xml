@@ -22,10 +22,4 @@
         android:name="com.overheat.capstoneproject.ui.news.NewsFragment"
         android:label="@string/title_news"
         tools:layout="@layout/fragment_news" />
-
-    <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.overheat.capstoneproject.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
 </navigation>

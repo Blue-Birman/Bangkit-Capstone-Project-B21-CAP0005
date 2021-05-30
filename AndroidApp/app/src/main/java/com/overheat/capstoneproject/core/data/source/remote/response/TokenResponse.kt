@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class TokenResponse(
 
-    @field:SerializedName("Id")
+    @field:SerializedName("id")
     val id: Int,
 
-    @field:SerializedName("User_id")
+    @field:SerializedName("user_id")
     val userId: Int,
 
     @field:SerializedName("token")
@@ -16,6 +16,6 @@ data class TokenResponse(
     @field:SerializedName("is_valid")
     val isValid: Boolean,
 
-    @field:SerializedName("Date_added")
+    @field:SerializedName("date_added")
     val dateAdded: String
 )

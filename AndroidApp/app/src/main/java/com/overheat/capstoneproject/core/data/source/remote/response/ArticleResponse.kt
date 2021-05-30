@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class ArticleResponse(
 
-    @field:SerializedName("Id")
+    @field:SerializedName("id")
     val id: Int,
 
-    @field:SerializedName("Title")
+    @field:SerializedName("title")
     val title: String,
 
-    @field:SerializedName("Image")
+    @field:SerializedName("image")
     val image: String,
 
-    @field:SerializedName("Article")
+    @field:SerializedName("article")
     val article: String
 )

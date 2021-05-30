@@ -16,6 +16,7 @@ import com.overheat.capstoneproject.core.data.source.local.entity.*
     version = 1,
     exportSchema = false
 )
+
 abstract class SkinCancerDatabase : RoomDatabase() {
 
     abstract fun skinCancerDao() : SkinCancerDao

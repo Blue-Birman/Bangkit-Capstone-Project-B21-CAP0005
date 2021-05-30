@@ -11,6 +11,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_marginTop="15dp"
+        android:scaleType="fitCenter"
         android:contentDescription="@string/photo_iv_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

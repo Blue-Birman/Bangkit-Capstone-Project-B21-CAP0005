@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName
 
 data class HistoryResponse(
 
-    @field:SerializedName("Id")
+    @field:SerializedName("id")
     val id: Int,
 
-    @field:SerializedName("User_id")
+    @field:SerializedName("user_id")
     val userId: Int,
 
-    @field:SerializedName("Activity")
+    @field:SerializedName("activity")
     val activity: String,
 
-    @field:SerializedName("Date_added")
+    @field:SerializedName("date_added")
     val dateAdded: String
 )
