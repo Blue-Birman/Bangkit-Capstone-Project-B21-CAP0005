@@ -162,7 +162,8 @@ def articles_route():
         articles = Article.query.order_by(desc(Article.date_added)).all()
         for article in articles:
             if article.image != None:
-                article.image = blob2string_base64(article.image)
+                article.image = None
+                article.article=None
 
         response = make_response(
             json.dumps(articles),
