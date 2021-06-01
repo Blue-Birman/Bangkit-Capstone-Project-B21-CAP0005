@@ -1,4 +1,4 @@
-USE skin_cancer_app;
+USE test;
 INSERT INTO article (title, article, date_added) 
 VALUES (
     'Does Aspirin Increase Your Risk of Skin Cancer?', 
