@@ -1,0 +1,5 @@
+sudo su
+cp Article* /tmp/
+
+chown mysql:mysql /tmp/Article*
+ls -l
