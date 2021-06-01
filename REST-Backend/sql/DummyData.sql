@@ -1,5 +1,5 @@
 USE test;
-INSERT INTO article (title, article, date_added, image) 
+INSERT INTO article (title, article, date_added) 
 VALUES (
     'Does Aspirin Increase Your Risk of Skin Cancer?', 
     'Aspirin is among the most commonly used medications in the world. It is used over the counter to treat common causes of pain such as headaches.
@@ -17,11 +17,8 @@ One reason for the difference between results for men and women could be that pr
 How will aspirin affect my risk of developing skin cancer?
 Known risk factors for melanoma include sun exposure, fair skin, sunburn or tanning, a family history of skin cancer, ultraviolet exposure, and multiple moles. In recent times, the incidence of MM has gone up in the US.
 Because the evidence is conflicting regarding aspirin use and skin cancer development, people should focus on well-established prevention for skin cancer. Covering up and consistent sunscreen use when exposed to the sun are the best methods by which to protect the skin from skin cancer and other short-term and long-term effects of sun exposure.
-The evidence is not clear enough at this time to make a recommendation regarding aspirin intake and skin cancer risk. Aspirin use should be based on other factors, especially history of cardiovascular disease.', 
-    CURRENT_TIMESTAMP,
-    LOAD_FILE('/var/lib/mysql-files/Article1.PNG')
-);
-INSERT INTO article (title, article, date_added, image) 
+The evidence is not clear enough at this time to make a recommendation regarding aspirin intake and skin cancer risk. Aspirin use should be based on other factors, especially history of cardiovascular disease.', CURRENT_TIMESTAMP);
+INSERT INTO article (title, article, date_added) 
 VALUES (
     'Skin Cancer Prevention', 
     'One of the major risk factors for skin cancer is exposure to the sun’s harmful UV rays. The best method for prevention of skin cancer is to protect oneself from such exposure.
@@ -58,10 +55,8 @@ Tanning lamps give out UVA and usually UVB rays as well. These can seriously har
 Several tanning pills claim to give a tan without exposing a person to UV radiation. These mostly contain color additives similar to beta-carotene. The Food and Drug Administration (FDA) does not approve any of these products for tanning.
 Routine self skin examination
 Routine self skin examination is another important measure for detection of any skin changes or changes in moles, scars, marks, blemishes, freckles early. If detected early most skin cancers are easier to treat.
-', CURRENT_TIMESTAMP,
-LOAD_FILE('/var/lib/mysql-files/Article2.PNG')
-);
-INSERT INTO article (title, article, date_added, image) 
+', CURRENT_TIMESTAMP);
+INSERT INTO article (title, article, date_added) 
 VALUES (
     'What is Skin Cancer?', 
     'Skin cancer is the most common form of cancer in the United States. Almost all skin cancers are the result of too much exposure to ultraviolet light. This is found in sunlight, tanning booths, and sunlamps. Skin cancer is usually one of the most curable types of cancer.
@@ -160,10 +155,8 @@ Questions to ask your doctor
 - How quickly does my type of skin cancer grow and spread?
 - Do I have an increased risk of additional skin cancers?
 - Should I see a skin cancer specialist?', 
-CURRENT_TIMESTAMP,
-LOAD_FILE('/var/lib/mysql-files/Article3.PNG')
-);
-INSERT INTO article (title, article, date_added, image) 
+CURRENT_TIMESTAMP);
+INSERT INTO article (title, article, date_added) 
 VALUES (
     'Survival Rates for Different Types of Skin Cancer', 
     'Skin cancer is the abnormal growth of skin cells. It’s a common cancer that can form on any part of the body, but it often occurs on sun-exposed skin.
@@ -273,10 +266,9 @@ Depending on the type, skin cancer can grow rapidly and become life-threatening 
 Talk to your doctor if you have any new growths on your skin or notice changes to an existing mole, bump, or birthmark.
 Skin cancer has a high cure rate, but only if caught early.
 ', 
-    CURRENT_TIMESTAMP,
-    LOAD_FILE('/var/lib/mysql-files/Article4.PNG')
+    CURRENT_TIMESTAMP
 );
-INSERT INTO article (title, article, date_added, image) 
+INSERT INTO article (title, article, date_added) 
 VALUES (
     'Risk factors for skin cancer', 
     'The primary risk factor for melanoma and non-melanoma cancers is exposure to ultraviolet (UV) light, including sunlight and tanning beds, with the risk growing with the amount of exposure. People who live in areas with bright, year-round sunlight, or those who spend a lot of time outdoors without protective clothing or sunscreen, are at greater risk. Early exposure, particularly for people who had frequent sunburns as a child, also increases skin cancer risks.
@@ -308,13 +300,5 @@ Viruses: Certain types of human papilloma virus (HPV) infections, particularly t
 Previous treatment
 Radiation exposure: Treatment with radiation may increase the risk for developing skin cancers in the exposed area.
 Psoriasis treatment: Individuals who have been treated for psoriasis with a combination of psoralen, a natural remedy, and ultraviolet light treatment may have an increased risk for developing squamous cell carcinoma and other forms of skin cancer.', 
-    CURRENT_TIMESTAMP,
-    LOAD_FILE('/var/lib/mysql-files/Article5.PNG')
-
+    CURRENT_TIMESTAMP
 );
-
-
-CREATE TABLE images(
-    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    image longblob
-)
