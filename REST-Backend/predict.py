@@ -3,7 +3,7 @@ from numpy import asarray
 from tensorflow.keras.applications.inception_v3 import preprocess_input
 
 
-MODEL_NAME = "model/Model_V1"
+MODEL_NAME = "model/Model_V2"
 
 model = load_model(MODEL_NAME)
 
