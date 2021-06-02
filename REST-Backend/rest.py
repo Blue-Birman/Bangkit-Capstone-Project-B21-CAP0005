@@ -41,23 +41,9 @@ def user_route():
     return default_404_not_found_response
 
 
-@api.route('/diagnose', methods=['GET', 'POST'])
+@api.route('/diagnose', methods=['POST'])
 def diagnose():
-    if request.method == 'GET':
-        content = request.json
-        is_auth = authenticate(content["email"], content["token"]) 
-        if is_auth :
-            user = User.query.filter_by(email=content["email"]).first()
-            results = list(Result.query.filter_by(user_id=user.id).order_by(desc(Result.date_added)).all())
-            for result in results : 
-                del result.image
-            print(results)
-            response = make_response(
-                json.dumps(results),
-                200
-            )
-            return response
-        return default_403_forbidden_response
+    
     if request.method == 'POST':
         content = request.json
         is_auth = authenticate(content["email"], content["token"]) 
@@ -122,12 +108,41 @@ def diagnose():
         )
         default_403_forbidden_response.headers["Content-Type"]='application/json'
         return default_403_forbidden_response
+    default_404_not_found_response = make_response(
+    json.dumps({"message" : "404 Error, Not Found"}),
+        404
+    )
+    default_404_not_found_response.headers["Content-Type"]='application/json'
     return default_404_not_found_response
 
 
-@api.route("/retrieve_result", methods=["GET"])
+@api.route("/retrieve_results", methods=["POST"])
+def retrieve_results():
+    if request.method == 'POST':
+        content = request.json
+        is_auth = authenticate(content["email"], content["token"]) 
+        if is_auth :
+            user = User.query.filter_by(email=content["email"]).first()
+            results = list(Result.query.filter_by(user_id=user.id).order_by(desc(Result.date_added)).all())
+            for result in results : 
+                del result.image
+            print(results)
+            response = make_response(
+                json.dumps(results),
+                200
+            )
+            return response
+        return default_403_forbidden_response
+    default_404_not_found_response = make_response(
+    json.dumps({"message" : "404 Error, Not Found"}),
+        404
+    )
+    default_404_not_found_response.headers["Content-Type"]='application/json'
+    return default_404_not_found_response
+
+@api.route("/retrieve_result", methods=["POST"])
 def retrieve_result_route():
-    if request.method == 'GET':
+    if request.method == 'POST':
         content = request.json  
         is_auth = authenticate(content["email"], content["token"])  
         if is_auth:
@@ -179,9 +194,9 @@ def articles_route():
     return default_404_not_found_response
 
 
-@api.route("/article", methods=["GET"])
+@api.route("/article", methods=["POST"])
 def article_route():
-    if request.method == 'GET':
+    if request.method == 'POST':
         content = request.json
         article = Article.query.filter_by(id=content["article_id"]).first()
         comments = list(Comment.query.filter_by(article_id=content["article_id"]))
