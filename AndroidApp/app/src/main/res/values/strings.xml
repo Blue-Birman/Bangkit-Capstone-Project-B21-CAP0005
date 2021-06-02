@@ -16,7 +16,9 @@
 
     <string name="button_take_pic">Take photo</string>
     <string name="photo_iv_desc">Image captured</string>
-    <string name="result">Result</string>
+    <string name="result">Result : </string>
+    <string name="warning">Warning</string>
+    <string name="close">Close pop up</string>
 
     <string name="text_full_name">Full Name:</string>
     <string name="text_sex">Sex:</string>
