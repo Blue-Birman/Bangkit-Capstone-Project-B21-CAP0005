@@ -1,9 +1,14 @@
 package com.overheat.capstoneproject.ui.news
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bumptech.glide.Glide
 import com.overheat.capstoneproject.R
+import com.overheat.capstoneproject.core.domain.model.DetailArticle
 import com.overheat.capstoneproject.databinding.ActivityDetailNewsBinding
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class DetailNewsActivity : AppCompatActivity() {
 
@@ -11,6 +16,7 @@ class DetailNewsActivity : AppCompatActivity() {
         const val ARTICLE_ID = "article_id"
     }
 
+    private val viewModel: DetailNewsViewModel by viewModel()
     private lateinit var binding: ActivityDetailNewsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,6 +25,28 @@ class DetailNewsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.newsToolbar)
-        supportActionBar?.title = resources.getString(R.string.title_news)
+        val whiteBackground = ColorDrawable(Color.parseColor("#FFFFFFFF"))
+        supportActionBar?.setBackgroundDrawable(whiteBackground)
+
+        val articleId = intent.getIntExtra(ARTICLE_ID, 0)
+        val detailArticle = viewModel.detailArticle(articleId)
+        populateActivity(detailArticle)
+    }
+
+    private fun populateActivity(detail: DetailArticle) {
+        with(binding) {
+            if (detail.article.image != null) {
+                Glide.with(this@DetailNewsActivity)
+                    .load(detail.article.image)
+                    .into(ivNews)
+            } else {
+                Glide.with(this@DetailNewsActivity)
+                    .load(R.drawable.no_image)
+                    .into(ivNews)
+            }
+
+            tvContent.text = detail.article.article
+            supportActionBar?.title = detail.article.title
+        }
     }
 }

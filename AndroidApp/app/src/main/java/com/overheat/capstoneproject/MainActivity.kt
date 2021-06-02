@@ -1,5 +1,7 @@
 package com.overheat.capstoneproject
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -22,5 +24,8 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_home, R.id.navigation_photo, R.id.navigation_news))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val whiteBackground = ColorDrawable(Color.parseColor("#FFFFFFFF"))
+        supportActionBar?.setBackgroundDrawable(whiteBackground)
     }
 }
