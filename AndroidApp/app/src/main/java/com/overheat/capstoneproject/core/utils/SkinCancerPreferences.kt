@@ -1,9 +1,8 @@
 package com.overheat.capstoneproject.core.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 
-class SkinCancerPreferences(private val context: Context) {
+class SkinCancerPreferences(context: Context) {
 
     companion object {
         private const val PREFS_NAME = "skin_cancer_prefs"
