@@ -1,8 +1,9 @@
 package com.overheat.capstoneproject.core.domain.model
 
-data class Result(
+data class Diagnose(
     val cancerProba: Double,
-    val email: String?,
-    val name: String?,
+    val dateAdded: String,
+    val id: Int,
+    val image: String?,
     val userId: Int?
 )

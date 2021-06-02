@@ -13,7 +13,7 @@ data class TokenResponse(
     @field:SerializedName("token")
     val token: String,
 
-    @field:SerializedName("is_valid")
+    @field:SerializedName("is_active")
     val isValid: Boolean,
 
     @field:SerializedName("date_added")

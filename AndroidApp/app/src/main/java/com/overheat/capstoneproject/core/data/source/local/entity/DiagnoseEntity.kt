@@ -5,20 +5,23 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "article")
-data class ArticleEntity(
+@Entity(tableName = "diagnose")
+data class DiagnoseEntity(
 
     @PrimaryKey
     @NonNull
     @ColumnInfo(name = "id")
     var id: Int,
 
-    @ColumnInfo(name = "title")
-    var title: String,
-
     @ColumnInfo(name = "image")
     var image: String?,
 
-    @ColumnInfo(name = "article")
-    var article: String?
+    @ColumnInfo(name = "user_id")
+    var userId: Int?,
+
+    @ColumnInfo(name = "cancer_proba")
+    var cancerProba: Double,
+
+    @ColumnInfo(name = "date_added")
+    var dateAdded: String
 )

@@ -1,11 +1,11 @@
 package com.overheat.capstoneproject.core.utils
 
 import com.overheat.capstoneproject.core.data.source.local.entity.ArticleEntity
+import com.overheat.capstoneproject.core.data.source.local.entity.DiagnoseEntity
 import com.overheat.capstoneproject.core.data.source.local.entity.FaqEntity
-import com.overheat.capstoneproject.core.data.source.remote.response.ArticleResponse
-import com.overheat.capstoneproject.core.data.source.remote.response.FaqResponse
-import com.overheat.capstoneproject.core.domain.model.Article
-import com.overheat.capstoneproject.core.domain.model.Faq
+import com.overheat.capstoneproject.core.data.source.local.entity.UserEntity
+import com.overheat.capstoneproject.core.data.source.remote.response.*
+import com.overheat.capstoneproject.core.domain.model.*
 
 object DataMapper {
 
@@ -74,4 +74,102 @@ object DataMapper {
 
         return listArticles
     }
+
+    fun mapEntityToDomainDiagnose(input: List<DiagnoseEntity>) : List<Diagnose> {
+        val listDiagnose = ArrayList<Diagnose>()
+
+        input.map {
+            val diagnose = Diagnose(
+                id = it.id,
+                userId = it.userId,
+                image = it.image,
+                cancerProba = it.cancerProba,
+                dateAdded = it.dateAdded
+            )
+
+            listDiagnose.add(diagnose)
+        }
+
+        return listDiagnose
+    }
+
+    fun mapResponseToEntityDiagnose(input: List<DiagnoseResponse>) : List<DiagnoseEntity> {
+        val listDiagnose = ArrayList<DiagnoseEntity>()
+
+        input.map {
+            val diagnose = DiagnoseEntity(
+                id = it.id,
+                userId = it.userId,
+                image = it.image,
+                cancerProba = it.cancerProba,
+                dateAdded = it.dateAdded
+            )
+
+            listDiagnose.add(diagnose)
+        }
+
+        return listDiagnose
+    }
+
+    fun mapResponseToDomainDiagnose(input: DiagnoseResponse) : Diagnose =
+        Diagnose(
+            id = input.id,
+            userId = input.userId,
+            image = input.image,
+            cancerProba = input.cancerProba,
+            dateAdded = input.dateAdded
+        )
+
+    fun mapResponseToDomainResult(input: ResultResponse) : Result =
+        Result(
+            cancerProba = input.cancerProba,
+            email = input.email,
+            name = input.name,
+            userId = input.userId
+        )
+
+    fun mapResponseToDomainDetailArticle(input: DetailArticleResponse) : DetailArticle {
+        val article = mapResponseToDomainSingleArticle(input.article)
+        val comments = mapResponseToDomainComments(input.comments)
+
+        return DetailArticle(
+            article = article,
+            comments = comments
+        )
+    }
+
+    private fun mapResponseToDomainComments(input: List<CommentResponse>) : List<Comment> {
+        val listComment = ArrayList<Comment>()
+
+        input.map {
+            val comment = Comment(
+                articleId = it.articleId,
+                id = it.id,
+                userId = it.userId,
+                comment = it.comment,
+                dateAdded = it.dateAdded
+            )
+
+            listComment.add(comment)
+        }
+
+        return listComment
+    }
+
+    private fun mapResponseToDomainSingleArticle(input: ArticleResponse) : Article =
+        Article(
+            id = input.id,
+            title = input.title,
+            image = input.image,
+            article = input.article
+        )
+
+    fun mapResponseToEntityUser(input: UserResponse) : UserEntity =
+        UserEntity(
+            id = input.id,
+            name = input.name,
+            email = input.email,
+            passHash = input.passHash,
+            dateAdded = input.dateAdded
+        )
 }
