@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.overheat.capstoneproject.R
 import com.overheat.capstoneproject.core.data.Resource
-import com.overheat.capstoneproject.core.data.source.remote.network.ApiResponse
+import com.overheat.capstoneproject.core.domain.model.Article
 import com.overheat.capstoneproject.core.ui.HomeListFaqAdapter
 import com.overheat.capstoneproject.databinding.FragmentHomeBinding
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -72,26 +72,38 @@ class HomeFragment : Fragment() {
     }
 
     private fun prepareCarouselView() {
-        val sampleImages = arrayOf(
-            "https://raw.githubusercontent.com/sayyam/carouselview/master/sample/src/main/res/drawable/image_3.jpg",
-            "https://raw.githubusercontent.com/sayyam/carouselview/master/sample/src/main/res/drawable/image_1.jpg",
-            "https://raw.githubusercontent.com/sayyam/carouselview/master/sample/src/main/res/drawable/image_2.jpg"
-        )
+        val listArticle = ArrayList<Article>()
+        viewModel.articles().observe(viewLifecycleOwner, { articles ->
+            if (articles != null) {
+                when(articles) {
+                    is Resource.Success -> {
+                        articles.data?.let { listArticle.addAll(it) }
+                    }
+                    is Resource.Loading -> {
+                        // Loading
+                    }
+                    is Resource.Error -> {
+                        // Error
+                    }
+                }
+            }
+        })
 
         with(binding.carouselView) {
             // Set image listener must be called before page count
             // If not, it will cause error -> View must set ImageListener or ViewListener
             setImageListener { position, imageView ->
-                Glide.with(this@HomeFragment)
-                    .load(sampleImages[position])
-                    .into(imageView)
+                if (listArticle[position].image != null) {
+                    Glide.with(this@HomeFragment)
+                        .load(listArticle[position].image)
+                        .into(imageView)
+                } else {
+                    Glide.with(this@HomeFragment)
+                        .load(R.drawable.no_image)
+                        .into(imageView)
+                }
             }
-            pageCount = sampleImages.size
+            pageCount = listArticle.size
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.notifications_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 }

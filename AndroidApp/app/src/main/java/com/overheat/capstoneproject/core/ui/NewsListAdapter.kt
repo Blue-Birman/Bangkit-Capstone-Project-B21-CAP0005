@@ -3,29 +3,45 @@ package com.overheat.capstoneproject.core.ui
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.overheat.capstoneproject.R
+import com.overheat.capstoneproject.core.domain.model.Article
 import com.overheat.capstoneproject.databinding.ItemsNewsBinding
 import com.overheat.capstoneproject.ui.news.DetailNewsActivity
 
 class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.NewsListViewHolder>() {
 
+    private val listArticle = ArrayList<Article>()
+
+    fun setArticles(listArticle: List<Article>?) {
+        if (listArticle == null) return
+
+        this.listArticle.clear()
+        this.listArticle.addAll(listArticle)
+        notifyDataSetChanged()
+    }
+
     inner class NewsListViewHolder(private val binding: ItemsNewsBinding) : RecyclerView.ViewHolder(binding.root) {
-        val imgPath = "https://raw.githubusercontent.com/sayyam/carouselview/master/sample/src/main/res/drawable/image_3.jpg"
-
-        fun bind() {
+        fun bind(article: Article) {
             with(binding) {
-                tvArticleTitle.text = "Lorem ipsum dolor sit amet"
-                tvArticleText.text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Id quisque vestibulum ante quis. Nisl at arcu non dui aliquet felis phasellus aliquam "
+                tvArticleTitle.text = article.title
+                tvArticleText.text = article.article
 
-                Glide.with(itemView.context)
-                    .load(imgPath)
-                    .into(imgNewsCover)
+                if (article.image != null) {
+                    Glide.with(itemView.context)
+                        .load(article.image)
+                        .into(imgNewsCover)
+                } else {
+                    Glide.with(itemView.context)
+                        .load(R.drawable.no_image)
+                        .into(imgNewsCover)
+                }
 
                 itemView.setOnClickListener {
                     // Go to the article using Intent
                     val intent = Intent(itemView.context, DetailNewsActivity::class.java)
+                    intent.putExtra(DetailNewsActivity.ARTICLE_ID, article.id)
                     itemView.context.startActivity(intent)
                 }
             }
@@ -42,10 +58,10 @@ class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.NewsListViewHolder>
     }
 
     override fun onBindViewHolder(holder: NewsListViewHolder, position: Int) {
-        holder.bind()
+        holder.bind(listArticle[position])
     }
 
     override fun getItemCount(): Int {
-        return 5
+        return listArticle.size
     }
 }

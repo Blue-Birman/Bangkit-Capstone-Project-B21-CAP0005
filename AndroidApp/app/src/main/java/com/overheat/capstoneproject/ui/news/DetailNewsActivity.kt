@@ -7,6 +7,10 @@ import com.overheat.capstoneproject.databinding.ActivityDetailNewsBinding
 
 class DetailNewsActivity : AppCompatActivity() {
 
+    companion object {
+        const val ARTICLE_ID = "article_id"
+    }
+
     private lateinit var binding: ActivityDetailNewsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

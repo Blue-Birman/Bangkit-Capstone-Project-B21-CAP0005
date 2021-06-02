@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.overheat.capstoneproject.R
+import com.overheat.capstoneproject.core.data.Resource
 import com.overheat.capstoneproject.core.ui.NewsListAdapter
 import com.overheat.capstoneproject.databinding.FragmentNewsBinding
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class NewsFragment : Fragment() {
 
+    private val viewModel: NewsViewModel by viewModel()
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
 
@@ -35,15 +37,25 @@ class NewsFragment : Fragment() {
 
     private fun prepareRecyclerViewNews() {
         val newsAdapter = NewsListAdapter()
+        viewModel.articles().observe(viewLifecycleOwner, { articles ->
+            if (articles != null) {
+                when(articles) {
+                    is Resource.Success -> {
+                        newsAdapter.setArticles(articles.data)
+                    }
+                    is Resource.Loading -> {
+                        // Loading
+                    }
+                    is Resource.Error -> {
+                        // Error
+                    }
+                }
+            }
+        })
 
         with(binding.rvNews) {
             layoutManager = LinearLayoutManager(activity)
             this.adapter = newsAdapter
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.notifications_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 }
