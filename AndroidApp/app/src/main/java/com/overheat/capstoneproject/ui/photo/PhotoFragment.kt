@@ -19,6 +19,8 @@ import java.io.ByteArrayOutputStream
 
 class PhotoFragment : Fragment() {
 
+
+
     private var _binding: FragmentPhotoBinding? = null
     private val binding get() = _binding!!
 
@@ -73,14 +75,16 @@ class PhotoFragment : Fragment() {
 
     private fun getResult() {
         val imageString = getImage()
+
         // resize image
         val bitmap =
             Bitmap.createScaledBitmap((binding.ivPhoto.drawable).toBitmap(), 150, 150, true)
 
         // send the image string to api
+        val result =
 
         // show result
-        showPopUp(bitmap, 0.7)
+        showPopUp(bitmap, 0.7) // pass bitmap and cancer proba from api
     }
 
     private fun showPopUp(bitmap: Bitmap, cancerProba: Double) {
@@ -124,11 +128,6 @@ class PhotoFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.notifications_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onDestroy() {
