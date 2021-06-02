@@ -11,7 +11,8 @@ import com.overheat.capstoneproject.core.data.source.local.entity.*
         FaqEntity::class,
         HistoryEntity::class,
         ResultEntity::class,
-        UserEntity::class
+        UserEntity::class,
+        DiagnoseEntity::class
     ],
     version = 1,
     exportSchema = false
