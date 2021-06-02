@@ -83,11 +83,11 @@ class PhotoFragment : Fragment() {
             Bitmap.createScaledBitmap((binding.ivPhoto.drawable).toBitmap(), 150, 150, true)
 
         // send the image string to api
-        // val result = photoViewModel.getResult(imageString)
-        val result = 0.8
+        val result = photoViewModel.getResult(imageString)
+        // val result = 0.8
 
         // show result
-        showPopUp(bitmap, result) // pass bitmap and cancer proba from api
+        showPopUp(bitmap, result?.cancerProba) // pass bitmap and cancer proba from api
     }
 
     private fun showPopUp(bitmap: Bitmap, cancerProba: Double?) {
