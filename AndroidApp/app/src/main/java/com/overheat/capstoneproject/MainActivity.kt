@@ -24,8 +24,5 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_home, R.id.navigation_photo, R.id.navigation_news))
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        val whiteBackground = ColorDrawable(Color.parseColor("#FFFFFFFF"))
-        supportActionBar?.setBackgroundDrawable(whiteBackground)
     }
 }

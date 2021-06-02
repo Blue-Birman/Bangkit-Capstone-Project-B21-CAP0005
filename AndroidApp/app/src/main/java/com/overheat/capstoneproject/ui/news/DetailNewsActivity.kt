@@ -25,8 +25,6 @@ class DetailNewsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.newsToolbar)
-        val whiteBackground = ColorDrawable(Color.parseColor("#FFFFFFFF"))
-        supportActionBar?.setBackgroundDrawable(whiteBackground)
 
         val articleId = intent.getIntExtra(ARTICLE_ID, 0)
         val detailArticle = viewModel.detailArticle(articleId)
