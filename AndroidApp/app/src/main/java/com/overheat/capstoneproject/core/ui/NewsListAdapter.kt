@@ -1,10 +1,13 @@
 package com.overheat.capstoneproject.core.ui
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.overheat.capstoneproject.databinding.ItemsNewsBinding
+import com.overheat.capstoneproject.ui.news.DetailNewsActivity
 
 class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.NewsListViewHolder>() {
 
@@ -22,6 +25,8 @@ class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.NewsListViewHolder>
 
                 itemView.setOnClickListener {
                     // Go to the article using Intent
+                    val intent = Intent(itemView.context, DetailNewsActivity::class.java)
+                    itemView.context.startActivity(intent)
                 }
             }
         }
