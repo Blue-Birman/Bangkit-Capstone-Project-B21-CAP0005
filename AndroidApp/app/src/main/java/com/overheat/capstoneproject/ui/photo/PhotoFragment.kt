@@ -15,11 +15,13 @@ import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import com.overheat.capstoneproject.R
 import com.overheat.capstoneproject.databinding.FragmentPhotoBinding
+import com.overheat.capstoneproject.ui.news.DetailNewsViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 
 class PhotoFragment : Fragment() {
 
-
+    private val detailNewsViewModel: DetailNewsViewModel by viewModel()
 
     private var _binding: FragmentPhotoBinding? = null
     private val binding get() = _binding!!
@@ -81,7 +83,7 @@ class PhotoFragment : Fragment() {
             Bitmap.createScaledBitmap((binding.ivPhoto.drawable).toBitmap(), 150, 150, true)
 
         // send the image string to api
-        val result =
+
 
         // show result
         showPopUp(bitmap, 0.7) // pass bitmap and cancer proba from api
