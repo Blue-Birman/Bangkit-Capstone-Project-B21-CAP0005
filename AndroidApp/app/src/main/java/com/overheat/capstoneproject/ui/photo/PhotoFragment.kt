@@ -16,9 +16,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import com.overheat.capstoneproject.databinding.FragmentPhotoBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 
@@ -49,9 +46,7 @@ class PhotoFragment : Fragment() {
         }
 
         binding.btnSend.setOnClickListener {
-            GlobalScope.launch(Dispatchers.Main) {
-                getResult()
-            }
+            getResult()
         }
 
         binding.popupResult.btnClose.setOnClickListener {
@@ -65,13 +60,13 @@ class PhotoFragment : Fragment() {
                 Manifest.permission.CAMERA
             )
         ) {
-            Toast.makeText(requireContext(), "Permission allowed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), "Permission allowed", Toast.LENGTH_SHORT).show()
         } else {
             ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(Manifest.permission.CAMERA),
                 REQUEST_CODE
-            );
+            )
         }
     }
 
@@ -80,7 +75,7 @@ class PhotoFragment : Fragment() {
         startActivityForResult(cameraIntent, REQUEST_CODE)
     }
 
-    private suspend fun getResult() {
+    private fun getResult() {
         val imageString = getImage()
 
         // resize image
@@ -88,10 +83,11 @@ class PhotoFragment : Fragment() {
             Bitmap.createScaledBitmap((binding.ivPhoto.drawable).toBitmap(), 150, 150, true)
 
         // send the image string to api
-        val result = photoViewModel.getResult(imageString)
+        // val result = photoViewModel.getResult(imageString)
+        val result = 0.8
 
         // show result
-        showPopUp(bitmap, result?.cancerProba) // pass bitmap and cancer proba from api
+        showPopUp(bitmap, result) // pass bitmap and cancer proba from api
     }
 
     private fun showPopUp(bitmap: Bitmap, cancerProba: Double?) {

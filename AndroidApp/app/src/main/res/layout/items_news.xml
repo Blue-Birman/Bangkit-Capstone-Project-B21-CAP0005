@@ -6,7 +6,6 @@
     android:id="@+id/card_view_news"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/light_grey"
     android:layout_marginTop="16dp"
     app:cardCornerRadius="8dp"
     app:cardBackgroundColor="@color/light_grey"

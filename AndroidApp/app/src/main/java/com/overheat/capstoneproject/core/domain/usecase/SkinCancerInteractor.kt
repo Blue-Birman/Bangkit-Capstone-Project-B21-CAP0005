@@ -33,7 +33,7 @@ class SkinCancerInteractor(
         return repository.getAllHistoryDiagnose(userId)
     }
 
-    override suspend fun getResultFromImage(image: String): Result? {
+    override fun getResultFromImage(image: String): Result? {
         return getResultFromImage(image)
     }
 

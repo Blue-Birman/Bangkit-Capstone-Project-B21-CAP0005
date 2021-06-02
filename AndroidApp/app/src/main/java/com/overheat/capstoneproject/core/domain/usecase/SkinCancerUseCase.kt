@@ -15,7 +15,7 @@ interface SkinCancerUseCase {
     fun getDetailArticle(articleId: Int) : DetailArticle?
     suspend fun sendComment(articleId: Int, comment: String) : Boolean
     fun getAllHistoryDiagnose(userId: Int) : Flow<Resource<List<Diagnose>>>
-    suspend fun getResultFromImage(image: String) : Result?
+    fun getResultFromImage(image: String) : Result?
     suspend fun getDiagnoseResult(resultId: Int) : Diagnose?
     fun getActiveToken(email: String, passHash: String)
     fun addNewUser(name: String, email: String, passHash: String)

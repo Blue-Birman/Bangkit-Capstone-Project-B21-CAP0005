@@ -22,7 +22,7 @@ class HomeListFaqAdapter : RecyclerView.Adapter<HomeListFaqAdapter.HomeListFaqVi
 
     inner class HomeListFaqViewHolder(private val binding: ItemsFaqBinding)
         : RecyclerView.ViewHolder(binding.root) {
-        var isSelected: Boolean = false
+        private var isSelected: Boolean = false
 
         fun bind(faq: Faq) {
             with(binding) {

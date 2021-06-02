@@ -1,9 +1,7 @@
 package com.overheat.capstoneproject.ui.news
 
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.overheat.capstoneproject.R
 import com.overheat.capstoneproject.core.domain.model.DetailArticle
