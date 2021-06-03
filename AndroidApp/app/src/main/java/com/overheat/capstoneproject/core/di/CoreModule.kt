@@ -38,8 +38,8 @@ val remoteDataSourceModule = module {
     single {
         OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120, TimeUnit.SECONDS)
+            .connectTimeout(1200, TimeUnit.SECONDS)
+            .readTimeout(1200, TimeUnit.SECONDS)
             .build()
     }
     single {

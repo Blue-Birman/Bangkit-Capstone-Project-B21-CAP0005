@@ -25,8 +25,12 @@ class DetailNewsActivity : AppCompatActivity() {
         setSupportActionBar(binding.newsToolbar)
 
         val articleId = intent.getIntExtra(ARTICLE_ID, 0)
-        val detailArticle = viewModel.detailArticle(articleId)
-        populateActivity(detailArticle)
+        viewModel.detailArticle(articleId)
+        viewModel.detailArticle.observe(this, { data ->
+            if (data != null) {
+                populateActivity(data)
+            }
+        })
     }
 
     private fun populateActivity(detail: DetailArticle) {

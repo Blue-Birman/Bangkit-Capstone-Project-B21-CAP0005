@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:paddingBottom="14dp"
     tools:context=".ui.news.NewsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_news"
+        android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/items_news" />

@@ -2,6 +2,7 @@ package com.overheat.capstoneproject.core.data.source.remote.network
 
 import com.overheat.capstoneproject.core.data.source.remote.response.*
 import okhttp3.RequestBody
+import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -12,10 +13,10 @@ interface ApiService {
     @GET("articles")
     suspend fun getListArticles() : List<ArticleResponse>
 
-    @GET("article")
+    @POST("article")
     fun getDetailArticles(
         @Body requestBody: RequestBody
-    ) : DetailArticleResponse
+    ) : Call<DetailArticleResponse>
 
     // Comment
     @POST("comment")
@@ -30,13 +31,13 @@ interface ApiService {
     ) : List<DiagnoseResponse>
 
     @POST("diagnose")
-    suspend fun postImage(
+    fun postImage(
         @Body requestBody: RequestBody
     ) : ResultResponse
 
     // Result
     @GET("retrieve_result")
-    suspend fun getDiagnoseResult(
+    fun getDiagnoseResult(
         @Body requestBody: RequestBody
     ) : DiagnoseResponse
 

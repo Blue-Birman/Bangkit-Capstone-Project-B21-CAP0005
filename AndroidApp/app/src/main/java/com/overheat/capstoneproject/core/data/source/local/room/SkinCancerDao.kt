@@ -4,10 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.overheat.capstoneproject.core.data.source.local.entity.ArticleEntity
-import com.overheat.capstoneproject.core.data.source.local.entity.DiagnoseEntity
-import com.overheat.capstoneproject.core.data.source.local.entity.FaqEntity
-import com.overheat.capstoneproject.core.data.source.local.entity.UserEntity
+import com.overheat.capstoneproject.core.data.source.local.entity.*
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -33,4 +30,13 @@ interface SkinCancerDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertNewUser(newUser: UserEntity)
+
+    @Query("SELECT * FROM comment WHERE article_id = :articleId")
+    fun getAllCommentsArticle(articleId: Int) : List<CommentEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertAllComments(listComment: List<CommentEntity>)
+
+    @Query("SELECT * FROM article WHERE id = :articleId")
+    fun getSpecificArticle(articleId: Int) : ArticleEntity
 }

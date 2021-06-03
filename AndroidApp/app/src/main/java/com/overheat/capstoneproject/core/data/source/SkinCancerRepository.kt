@@ -79,19 +79,16 @@ class SkinCancerRepository(
         var detailArticle: DetailArticle? = null
 
         try {
-            when (val response = remoteDataSource.getDetailArticle(articleId)) {
-                is ApiResponse.Success -> {
-                    detailArticle = DataMapper.mapResponseToDomainDetailArticle(response.data)
+            remoteDataSource.getDetailArticleVoid(articleId) {
+                if (it != null) {
+                    detailArticle = DataMapper.mapResponseToDomainDetailArticle(it)
                 }
-                is ApiResponse.Error -> {
-                    Log.e("getDetailArticle", response.errorMessage)
-                }
-                else -> {}
             }
         } catch (e: Exception) {
             Log.e("Repository", e.toString())
         }
 
+        Log.d("Repository", "DetailArticle: ${detailArticle.toString()}")
         return detailArticle
     }
 
@@ -136,18 +133,20 @@ class SkinCancerRepository(
         }.asFlow()
     }
 
-    override suspend fun getResultFromImage(image: String): Result? {
+    override fun getResultFromImage(image: String): Result? {
         var result: Result? = null
 
         try {
-            when (val response = remoteDataSource.getResultFromImage(image)) {
-                is ApiResponse.Success -> {
-                    result = DataMapper.mapResponseToDomainResult(response.data)
+            appExecutors.networkIO().execute {
+                when (val response = remoteDataSource.getResultFromImage(image)) {
+                    is ApiResponse.Success -> {
+                        result = DataMapper.mapResponseToDomainResult(response.data)
+                    }
+                    is ApiResponse.Error -> {
+                        Log.e("getResultFromImage", response.errorMessage)
+                    }
+                    else -> {}
                 }
-                is ApiResponse.Error -> {
-                    Log.e("getResultFromImage", response.errorMessage)
-                }
-                else -> {}
             }
         } catch (e: Exception) {
             Log.e("Repository", e.toString())

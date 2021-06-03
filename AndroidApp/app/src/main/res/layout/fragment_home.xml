@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="20dp"
+    android:paddingBottom="30dp"
     tools:context=".ui.home.HomeFragment">
 
     <LinearLayout
@@ -74,7 +75,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_faqs"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
             android:minHeight="200dp"
             tools:listitem="@layout/items_faq" />
     </LinearLayout>

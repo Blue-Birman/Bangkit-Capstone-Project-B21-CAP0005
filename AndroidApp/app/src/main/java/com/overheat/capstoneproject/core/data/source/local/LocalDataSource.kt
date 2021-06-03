@@ -1,9 +1,6 @@
 package com.overheat.capstoneproject.core.data.source.local
 
-import com.overheat.capstoneproject.core.data.source.local.entity.ArticleEntity
-import com.overheat.capstoneproject.core.data.source.local.entity.DiagnoseEntity
-import com.overheat.capstoneproject.core.data.source.local.entity.FaqEntity
-import com.overheat.capstoneproject.core.data.source.local.entity.UserEntity
+import com.overheat.capstoneproject.core.data.source.local.entity.*
 import com.overheat.capstoneproject.core.data.source.local.room.SkinCancerDao
 import kotlinx.coroutines.flow.Flow
 
@@ -31,4 +28,13 @@ class LocalDataSource(
 
     fun addNewUser(newUser: UserEntity) =
         databaseDao.insertNewUser(newUser)
+
+    fun getAllComments(articleId: Int) : List<CommentEntity> =
+        databaseDao.getAllCommentsArticle(articleId)
+
+    suspend fun insertAllComments(listComment: List<CommentEntity>) =
+        databaseDao.insertAllComments(listComment)
+
+    fun getDetailArticle(articleId: Int) : ArticleEntity =
+        databaseDao.getSpecificArticle(articleId)
 }

@@ -78,6 +78,7 @@ class HomeFragment : Fragment() {
                 when(articles) {
                     is Resource.Success -> {
                         articles.data?.let { listArticle.addAll(it) }
+                        fillImageCarousel(listArticle)
                     }
                     is Resource.Loading -> {
                         // Loading
@@ -88,7 +89,9 @@ class HomeFragment : Fragment() {
                 }
             }
         })
+    }
 
+    private fun fillImageCarousel(listArticle: ArrayList<Article>) {
         with(binding.carouselView) {
             // Set image listener must be called before page count
             // If not, it will cause error -> View must set ImageListener or ViewListener

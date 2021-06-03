@@ -48,7 +48,8 @@
                 android:fontFamily="sans-serif-light"
                 android:textSize="12sp"
                 android:textColor="@color/black"
-                tools:text="@tools:sample/lorem"
+                android:maxLines="3"
+                tools:text="@tools:sample/lorem/random"
                 app:layout_constraintTop_toBottomOf="@id/tv_article_title"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/btn_read_article" />

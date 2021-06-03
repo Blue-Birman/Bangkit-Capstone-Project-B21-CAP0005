@@ -1,9 +1,6 @@
 package com.overheat.capstoneproject.core.utils
 
-import com.overheat.capstoneproject.core.data.source.local.entity.ArticleEntity
-import com.overheat.capstoneproject.core.data.source.local.entity.DiagnoseEntity
-import com.overheat.capstoneproject.core.data.source.local.entity.FaqEntity
-import com.overheat.capstoneproject.core.data.source.local.entity.UserEntity
+import com.overheat.capstoneproject.core.data.source.local.entity.*
 import com.overheat.capstoneproject.core.data.source.remote.response.*
 import com.overheat.capstoneproject.core.domain.model.*
 
@@ -171,5 +168,57 @@ object DataMapper {
             email = input.email,
             passHash = input.passHash,
             dateAdded = input.dateAdded
+        )
+
+    fun mapEntityToDomainComment(input: List<CommentEntity>) : List<Comment> {
+        val listComment = ArrayList<Comment>()
+
+        input.map {
+            val comment = Comment(
+                id = it.id,
+                articleId = it.articleId,
+                userId = it.user_id,
+                comment = it.comment,
+                dateAdded = it.dateAdded
+            )
+
+            listComment.add(comment)
+        }
+
+        return listComment
+    }
+
+    fun mapResponseToEntityComment(input: List<CommentResponse>) : List<CommentEntity> {
+        val listComment = ArrayList<CommentEntity>()
+
+        input.map {
+            val comment = CommentEntity(
+                id = it.id,
+                user_id = it.userId,
+                comment = it.comment,
+                articleId = it.articleId,
+                dateAdded = it.dateAdded
+            )
+
+            listComment.add(comment)
+        }
+
+        return listComment
+    }
+
+    fun mapResponseToEntitySingleArticle(input: ArticleResponse) : ArticleEntity =
+        ArticleEntity(
+            id = input.id,
+            title = input.title,
+            image = input.image,
+            article = input.article
+        )
+
+    fun mapEntityToDomainSingleArticle(input: ArticleEntity) : Article =
+        Article(
+            id = input.id,
+            title = input.title,
+            image = input.image,
+            article = input.article
         )
 }
