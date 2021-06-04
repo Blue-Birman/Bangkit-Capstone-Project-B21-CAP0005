@@ -25,37 +25,37 @@ interface ApiService {
     )
 
     // Diagnose
-    @GET("diagnose")
-    suspend fun getHistoryDiagnose(
-        @Body requestBody: RequestBody
-    ) : List<DiagnoseResponse>
-
     @POST("diagnose")
     fun postImage(
         @Body requestBody: RequestBody
-    ) : ResultResponse
+    ) : Call<ResultResponse>
 
     // Result
-    @GET("retrieve_result")
+    @POST("retrieve_result")
     fun getDiagnoseResult(
         @Body requestBody: RequestBody
-    ) : DiagnoseResponse
+    ) : Call<DiagnoseResponse>
+
+    @POST("retrieve_results")
+    fun getAllUserDiagnoses(
+        @Body requestBody: RequestBody
+    ) : Call<List<DiagnoseResponse>>
 
     // Login
     @POST("login")
     fun postLogin(
         @Body requestBody: RequestBody
-    ) : TokenResponse
+    ) : Call<TokenResponse>
 
     // User
     @POST("user")
     fun postNewUser(
         @Body requestBody: RequestBody
-    ) : UserResponse
+    ) : Call<UserResponse>
 
     // Logout
     @POST("logout")
     fun postLogout(
         @Body requestBody: RequestBody
-    ) : TokenResponse
+    ) : Call<TokenResponse>
 }

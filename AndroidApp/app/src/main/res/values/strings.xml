@@ -32,4 +32,7 @@
     <string name="button_send">Send</string>
     <string name="button_log_in">Log In</string>
     <string name="button_create_account">Create Account</string>
+    <string name="like_button">Like Button</string>
+    <string name="text_likes">%1$s Likes</string>
+    <string name="text_comments">%1$s Comments</string>
 </resources>

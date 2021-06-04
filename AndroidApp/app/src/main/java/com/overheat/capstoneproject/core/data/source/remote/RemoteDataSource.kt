@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody.Companion.toRequestBody
-import okhttp3.internal.wait
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -71,7 +70,6 @@ class RemoteDataSource(
                     call: Call<DetailArticleResponse>,
                     response: Response<DetailArticleResponse>
                 ) {
-                    Log.d("getDetailArticleVoid", response.body().toString())
                     onResult(response.body())
                 }
 
@@ -79,39 +77,6 @@ class RemoteDataSource(
                     onResult(null)
                 }
             })
-    }
-
-    fun getDetailArticle(articleId: Int) : ApiResponse<DetailArticleResponse> {
-        val bodyJson = JSONObject()
-        bodyJson.put("article_id", articleId)
-
-        val requestBody = bodyJson.toString()
-            .toRequestBody("application/json".toMediaTypeOrNull())
-
-        var detailArticle: DetailArticleResponse? = null
-        val response = apiService.getDetailArticles(requestBody)
-            .enqueue(object : Callback<DetailArticleResponse> {
-            override fun onResponse(
-                call: Call<DetailArticleResponse>,
-                response: Response<DetailArticleResponse>
-            ) {
-                if (response.isSuccessful) {
-                    Log.d("getDetailArticleRepo", response.body().toString())
-                    detailArticle = response.body()
-                }
-            }
-
-            override fun onFailure(call: Call<DetailArticleResponse>, t: Throwable) {
-                Log.d("getDetailArticleRepo", "Response unsuccessful")
-            }
-        })
-        return try {
-            Log.d("getDetailArticleRepo", response.wait().toString())
-            ApiResponse.Success(detailArticle!!)
-        } catch (e: Exception) {
-            Log.e("getDetailArticleRepo", e.toString())
-            ApiResponse.Error(e.toString())
-        }
     }
 
     suspend fun sendComment(articleId: Int, comment: String) : ApiResponse<String> {
@@ -133,7 +98,7 @@ class RemoteDataSource(
         }
     }
 
-    fun getAllHistoryDiagnose() : Flow<ApiResponse<List<DiagnoseResponse>>> {
+    fun getAllHistoryDiagnoseVoid(onResult: (List<DiagnoseResponse>?) -> Unit) {
         val bodyJson = JSONObject()
         bodyJson.put("email", sharedPreferences.getEmail())
         bodyJson.put("token", sharedPreferences.getToken())
@@ -141,22 +106,22 @@ class RemoteDataSource(
         val requestBody = bodyJson.toString()
             .toRequestBody("application/json".toMediaTypeOrNull())
 
-        return flow {
-            try {
-                val response = apiService.getHistoryDiagnose(requestBody)
-
-                if (response.isNotEmpty()) {
-                    emit(ApiResponse.Success(response))
-                } else {
-                    emit(ApiResponse.Empty)
+        apiService.getAllUserDiagnoses(requestBody)
+            .enqueue(object : Callback<List<DiagnoseResponse>> {
+                override fun onResponse(
+                    call: Call<List<DiagnoseResponse>>,
+                    response: Response<List<DiagnoseResponse>>
+                ) {
+                    onResult(response.body())
                 }
-            } catch (e: Exception) {
-                emit(ApiResponse.Error(e.toString()))
-            }
-        }.flowOn(Dispatchers.IO)
+
+                override fun onFailure(call: Call<List<DiagnoseResponse>>, t: Throwable) {
+                    onResult(null)
+                }
+            })
     }
 
-    fun getResultFromImage(image: String) : ApiResponse<ResultResponse> {
+    fun getResultFromImageVoid(image: String, onResult: (ResultResponse?) -> Unit) {
         val bodyJson = JSONObject()
         bodyJson.put("email", sharedPreferences.getEmail())
         bodyJson.put("token", sharedPreferences.getToken())
@@ -165,15 +130,22 @@ class RemoteDataSource(
         val requestBody = bodyJson.toString()
             .toRequestBody("application/json".toMediaTypeOrNull())
 
-        return try {
-            val response = apiService.postImage(requestBody)
-            ApiResponse.Success(response)
-        } catch (e: Exception) {
-            ApiResponse.Error(e.toString())
-        }
+        apiService.postImage(requestBody)
+            .enqueue(object : Callback<ResultResponse> {
+                override fun onResponse(
+                    call: Call<ResultResponse>,
+                    response: Response<ResultResponse>
+                ) {
+                    onResult(response.body())
+                }
+
+                override fun onFailure(call: Call<ResultResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            })
     }
 
-    fun getDiagnoseResult(resultId: Int) : ApiResponse<DiagnoseResponse> {
+    fun getDiagnoseResultVoid(resultId: Int, onResult: (DiagnoseResponse?) -> Unit) {
         val bodyJson = JSONObject()
         bodyJson.put("result_id", resultId)
         bodyJson.put("email", sharedPreferences.getEmail())
@@ -182,15 +154,22 @@ class RemoteDataSource(
         val requestBody = bodyJson.toString()
             .toRequestBody("application/json".toMediaTypeOrNull())
 
-        return try {
-            val response = apiService.getDiagnoseResult(requestBody)
-            ApiResponse.Success(response)
-        } catch (e: Exception) {
-            ApiResponse.Error(e.toString())
-        }
+        apiService.getDiagnoseResult(requestBody)
+            .enqueue(object : Callback<DiagnoseResponse> {
+                override fun onResponse(
+                    call: Call<DiagnoseResponse>,
+                    response: Response<DiagnoseResponse>
+                ) {
+                    onResult(response.body())
+                }
+
+                override fun onFailure(call: Call<DiagnoseResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            })
     }
 
-    fun getActiveToken(email: String, passHash: String) : ApiResponse<TokenResponse> {
+    fun getActiveTokenVoid(email: String, passHash: String, onResult: (TokenResponse?) -> Unit) {
         val bodyJson = JSONObject()
         bodyJson.put("email", email)
         bodyJson.put("pass_hash", passHash)
@@ -198,15 +177,27 @@ class RemoteDataSource(
         val requestBody = bodyJson.toString()
             .toRequestBody("application/json".toMediaTypeOrNull())
 
-        return try {
-            val response = apiService.postLogin(requestBody)
-            ApiResponse.Success(response)
-        } catch (e: Exception) {
-            ApiResponse.Error(e.toString())
-        }
+        apiService.postLogin(requestBody)
+            .enqueue(object : Callback<TokenResponse> {
+                override fun onResponse(
+                    call: Call<TokenResponse>,
+                    response: Response<TokenResponse>
+                ) {
+                    onResult(response.body())
+                }
+
+                override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            })
     }
 
-    fun addNewUser(name: String, email: String, passHash: String) : ApiResponse<UserResponse> {
+    fun addNewUserVoid(
+        name: String,
+        email: String,
+        passHash: String,
+        onResult: (UserResponse?) -> Unit
+    ) {
         val bodyJson = JSONObject()
         bodyJson.put("name", name)
         bodyJson.put("email", email)
@@ -215,15 +206,22 @@ class RemoteDataSource(
         val requestBody = bodyJson.toString()
             .toRequestBody("application/json".toMediaTypeOrNull())
 
-        return try {
-            val response = apiService.postNewUser(requestBody)
-            ApiResponse.Success(response)
-        } catch (e: Exception) {
-            ApiResponse.Error(e.toString())
-        }
+        apiService.postNewUser(requestBody)
+            .enqueue(object : Callback<UserResponse> {
+                override fun onResponse(
+                    call: Call<UserResponse>,
+                    response: Response<UserResponse>
+                ) {
+                    onResult(response.body())
+                }
+
+                override fun onFailure(call: Call<UserResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            })
     }
 
-    fun userLogout() : ApiResponse<TokenResponse> {
+    fun userLogoutVoid(onResult: (TokenResponse?) -> Unit) {
         val bodyJson = JSONObject()
         bodyJson.put("email", "email_here")
         bodyJson.put("token", "token_here")
@@ -231,11 +229,18 @@ class RemoteDataSource(
         val requestBody = bodyJson.toString()
             .toRequestBody("application/json".toMediaTypeOrNull())
 
-        return try {
-            val response = apiService.postLogout(requestBody)
-            ApiResponse.Success(response)
-        } catch (e: Exception) {
-            ApiResponse.Error(e.toString())
-        }
+        apiService.postLogout(requestBody)
+            .enqueue(object : Callback<TokenResponse> {
+                override fun onResponse(
+                    call: Call<TokenResponse>,
+                    response: Response<TokenResponse>
+                ) {
+                    onResult(response.body())
+                }
+
+                override fun onFailure(call: Call<TokenResponse>, t: Throwable) {
+                    onResult(null)
+                }
+            })
     }
 }

@@ -1,6 +1,7 @@
 package com.overheat.capstoneproject.ui.home
 
 import android.os.Bundle
+import android.util.Base64
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -42,7 +43,8 @@ class HomeFragment : Fragment() {
 
     private fun fillHomeFragment() {
         with(binding) {
-            tvWelcomeUser.text = context?.resources?.getString(R.string.welcome_guest, "Guest")
+            val username = viewModel.username()
+            tvWelcomeUser.text = context?.resources?.getString(R.string.welcome_guest, username)
             tvWelcomeText.text = "lorem ipsum dolor sit amet"
         }
     }
@@ -53,13 +55,14 @@ class HomeFragment : Fragment() {
             if (listFaqs != null) {
                 when(listFaqs) {
                     is Resource.Success -> {
+                        binding.progressBarRvFaqs.visibility = View.GONE
                         adapter.setDataFaqs(listFaqs.data)
                     }
                     is Resource.Loading -> {
-                        // Loading
+                        binding.progressBarRvFaqs.visibility = View.VISIBLE
                     }
                     is Resource.Error -> {
-                        // Error
+                        binding.progressBarRvFaqs.visibility = View.GONE
                     }
                 }
             }
@@ -77,14 +80,16 @@ class HomeFragment : Fragment() {
             if (articles != null) {
                 when(articles) {
                     is Resource.Success -> {
+                        binding.progressBarCarouselView.visibility = View.GONE
                         articles.data?.let { listArticle.addAll(it) }
                         fillImageCarousel(listArticle)
                     }
                     is Resource.Loading -> {
-                        // Loading
+                        binding.progressBarCarouselView.visibility = View.VISIBLE
                     }
                     is Resource.Error -> {
                         // Error
+                        binding.progressBarCarouselView.visibility = View.GONE
                     }
                 }
             }
@@ -93,16 +98,18 @@ class HomeFragment : Fragment() {
 
     private fun fillImageCarousel(listArticle: ArrayList<Article>) {
         with(binding.carouselView) {
-            // Set image listener must be called before page count
-            // If not, it will cause error -> View must set ImageListener or ViewListener
             setImageListener { position, imageView ->
                 if (listArticle[position].image != null) {
+                    val decodedImage = Base64.decode(listArticle[position].image, Base64.DEFAULT)
                     Glide.with(this@HomeFragment)
-                        .load(listArticle[position].image)
+                        .load(decodedImage)
+                        .fitCenter()
+                        .placeholder(R.drawable.no_image)
                         .into(imageView)
                 } else {
                     Glide.with(this@HomeFragment)
                         .load(R.drawable.no_image)
+                        .fitCenter()
                         .into(imageView)
                 }
             }

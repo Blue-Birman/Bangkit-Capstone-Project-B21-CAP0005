@@ -9,11 +9,10 @@
     android:paddingBottom="30dp"
     tools:context=".ui.home.HomeFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:orientation="vertical">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/tv_welcome_user"
@@ -22,7 +21,9 @@
             android:fontFamily="sans-serif-condensed"
             android:textSize="18sp"
             android:textColor="@color/blue"
-            tools:text="@string/welcome_guest" />
+            tools:text="@string/welcome_guest"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/tv_welcome_text"
@@ -32,7 +33,9 @@
             android:textSize="12sp"
             android:textColor="@color/black"
             android:layout_marginTop="8dp"
-            tools:text="@tools:sample/lorem" />
+            tools:text="@tools:sample/lorem"
+            app:layout_constraintTop_toBottomOf="@id/tv_welcome_user"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
@@ -40,9 +43,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:iconifiedByDefault="false"
-            app:queryHint="@string/search_hint" />
+            app:queryHint="@string/search_hint"
+            app:layout_constraintTop_toBottomOf="@id/tv_welcome_text"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
+            android:id="@+id/subtitle_article_recommendation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
@@ -50,7 +56,9 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="16dp"
-            android:text="@string/subtitle_recommendation" />
+            android:text="@string/subtitle_recommendation"
+            app:layout_constraintTop_toBottomOf="@id/search_view"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <com.synnapps.carouselview.CarouselView
             android:id="@+id/carousel_view"
@@ -60,9 +68,24 @@
             app:fillColor="@color/white"
             app:pageColor="@color/black"
             app:radius="8dp"
-            app:slideInterval="30000" />
+            app:slideInterval="30000"
+            app:layout_constraintTop_toBottomOf="@id/subtitle_article_recommendation"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_carousel_view"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintTop_toTopOf="@id/carousel_view"
+            app:layout_constraintBottom_toBottomOf="@id/carousel_view"
+            app:layout_constraintStart_toStartOf="@id/carousel_view"
+            app:layout_constraintEnd_toEndOf="@id/carousel_view" />
 
         <TextView
+            android:id="@+id/subtitle_faq"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-condensed"
@@ -70,13 +93,29 @@
             android:textStyle="bold"
             android:textColor="@color/black"
             android:layout_marginTop="16dp"
-            android:text="@string/subtitle_faq" />
+            android:text="@string/subtitle_faq"
+            app:layout_constraintTop_toBottomOf="@id/carousel_view"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_faqs"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:minHeight="200dp"
-            tools:listitem="@layout/items_faq" />
-    </LinearLayout>
+            tools:listitem="@layout/items_faq"
+            app:layout_constraintTop_toBottomOf="@id/subtitle_faq"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar_rv_faqs"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintTop_toTopOf="@id/rv_faqs"
+            app:layout_constraintBottom_toBottomOf="@id/rv_faqs"
+            app:layout_constraintStart_toStartOf="@id/rv_faqs"
+            app:layout_constraintEnd_toEndOf="@id/rv_faqs" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

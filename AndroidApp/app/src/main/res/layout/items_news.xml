@@ -21,7 +21,9 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="fitXY"
-            tools:src="@drawable/ic_launcher_background"
+            android:adjustViewBounds="true"
+            android:background="@color/light_grey"
+            tools:src="@drawable/no_image"
             tools:ignore="contentDescription" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

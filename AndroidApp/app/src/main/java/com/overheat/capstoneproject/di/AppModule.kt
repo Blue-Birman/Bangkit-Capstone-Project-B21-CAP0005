@@ -6,6 +6,7 @@ import com.overheat.capstoneproject.ui.photo.PhotoViewModel
 import com.overheat.capstoneproject.ui.home.HomeViewModel
 import com.overheat.capstoneproject.ui.news.DetailNewsViewModel
 import com.overheat.capstoneproject.ui.news.NewsViewModel
+import com.overheat.capstoneproject.ui.profile.ProfileViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -27,5 +28,8 @@ val viewModelModule = module {
     }
     viewModel {
         DetailNewsViewModel(get())
+    }
+    viewModel {
+        ProfileViewModel(get())
     }
 }
