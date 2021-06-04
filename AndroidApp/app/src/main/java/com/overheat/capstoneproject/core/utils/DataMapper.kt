@@ -135,7 +135,7 @@ object DataMapper {
         )
     }
 
-    private fun mapResponseToDomainComments(input: List<CommentResponse>) : List<Comment> {
+    fun mapResponseToDomainComments(input: List<CommentResponse>) : List<Comment> {
         val listComment = ArrayList<Comment>()
 
         input.map {

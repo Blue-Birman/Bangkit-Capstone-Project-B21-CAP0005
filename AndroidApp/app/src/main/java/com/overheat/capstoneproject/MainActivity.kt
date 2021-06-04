@@ -10,6 +10,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        const val EXTRA_FRAGMENT = "extra_fragment"
+        const val EXTRA_TYPE = "extra_type"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,5 +30,14 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val extras = intent.extras
+        if (extras != null) {
+            val fragment = extras.getInt(EXTRA_FRAGMENT, 0)
+            val type = extras.getInt(EXTRA_TYPE, 0)
+
+            if (fragment == 4) {
+            }
+        }
     }
 }

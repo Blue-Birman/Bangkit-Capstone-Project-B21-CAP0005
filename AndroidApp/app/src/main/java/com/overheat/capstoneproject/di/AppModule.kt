@@ -2,6 +2,7 @@ package com.overheat.capstoneproject.di
 
 import com.overheat.capstoneproject.core.domain.usecase.SkinCancerInteractor
 import com.overheat.capstoneproject.core.domain.usecase.SkinCancerUseCase
+import com.overheat.capstoneproject.ui.comments.CommentViewModel
 import com.overheat.capstoneproject.ui.photo.PhotoViewModel
 import com.overheat.capstoneproject.ui.home.HomeViewModel
 import com.overheat.capstoneproject.ui.news.DetailNewsViewModel
@@ -31,5 +32,8 @@ val viewModelModule = module {
     }
     viewModel {
         ProfileViewModel(get())
+    }
+    viewModel {
+        CommentViewModel(get(), get())
     }
 }
