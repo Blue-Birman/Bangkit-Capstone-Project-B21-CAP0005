@@ -131,8 +131,10 @@ class PhotoFragment : Fragment() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
 
         val imageBytes = byteArrayOutputStream.toByteArray()
+        var imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+        imageString = imageString.replace("\n","")
 
-        return Base64.encodeToString(imageBytes, Base64.DEFAULT)
+        return imageString.replace("\\", "")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

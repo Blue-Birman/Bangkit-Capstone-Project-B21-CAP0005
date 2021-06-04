@@ -18,8 +18,10 @@ import com.overheat.capstoneproject.core.domain.repository.ISkinCancerRepository
 import com.overheat.capstoneproject.core.utils.AppExecutors
 import com.overheat.capstoneproject.core.utils.DataMapper
 import com.overheat.capstoneproject.core.utils.SkinCancerPreferences
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class SkinCancerRepository(
@@ -79,11 +81,12 @@ class SkinCancerRepository(
         var detailArticle: DetailArticle? = null
 
         try {
-            remoteDataSource.getDetailArticleVoid(articleId) {
-                if (it != null) {
-                    detailArticle = DataMapper.mapResponseToDomainDetailArticle(it)
+
+                remoteDataSource.getDetailArticleVoid(articleId) {
+                    if (it != null) {
+                        detailArticle = DataMapper.mapResponseToDomainDetailArticle(it)
+                    }
                 }
-            }
         } catch (e: Exception) {
             Log.e("Repository", e.toString())
         }
