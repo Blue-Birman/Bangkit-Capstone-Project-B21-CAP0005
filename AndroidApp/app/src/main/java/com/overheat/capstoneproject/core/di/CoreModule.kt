@@ -1,6 +1,7 @@
 package com.overheat.capstoneproject.core.di
 
 import androidx.room.Room
+import com.google.gson.GsonBuilder
 import com.overheat.capstoneproject.core.data.source.SkinCancerRepository
 import com.overheat.capstoneproject.core.data.source.local.LocalDataSource
 import com.overheat.capstoneproject.core.data.source.local.room.SkinCancerDatabase
@@ -45,7 +46,9 @@ val remoteDataSourceModule = module {
     single {
         val retrofit = Retrofit.Builder()
             .baseUrl("http://34.101.199.61:5000/")
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(
+                GsonBuilder().serializeNulls().create()
+            ))
             .client(get())
             .build()
 
