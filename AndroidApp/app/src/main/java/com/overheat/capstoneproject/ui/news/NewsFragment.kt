@@ -41,13 +41,15 @@ class NewsFragment : Fragment() {
             if (articles != null) {
                 when(articles) {
                     is Resource.Success -> {
+                        binding.progressBarRvNews.visibility = View.GONE
                         newsAdapter.setArticles(articles.data)
                     }
                     is Resource.Loading -> {
-                        // Loading
+                        binding.progressBarRvNews.visibility = View.VISIBLE
                     }
                     is Resource.Error -> {
                         // Error
+                        binding.progressBarRvNews.visibility = View.GONE
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package com.overheat.capstoneproject.core.ui
 
 import android.content.Intent
+import android.util.Base64
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -29,8 +30,9 @@ class NewsListAdapter : RecyclerView.Adapter<NewsListAdapter.NewsListViewHolder>
                 tvArticleText.text = article.article
 
                 if (article.image != null) {
+                    val decodedImage = Base64.decode(article.image, Base64.DEFAULT)
                     Glide.with(itemView.context)
-                        .load(article.image)
+                        .load(decodedImage)
                         .into(imgNewsCover)
                 } else {
                     Glide.with(itemView.context)

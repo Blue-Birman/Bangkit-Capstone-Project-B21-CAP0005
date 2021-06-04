@@ -1,6 +1,8 @@
 package com.overheat.capstoneproject.ui.news
 
 import android.os.Bundle
+import android.util.Base64
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.overheat.capstoneproject.R
@@ -28,7 +30,10 @@ class DetailNewsActivity : AppCompatActivity() {
         viewModel.detailArticle(articleId)
         viewModel.detailArticle.observe(this, { data ->
             if (data != null) {
+                binding.progressBarDetailNews.visibility = View.GONE
                 populateActivity(data)
+            } else {
+                binding.progressBarDetailNews.visibility = View.VISIBLE
             }
         })
     }
@@ -36,8 +41,9 @@ class DetailNewsActivity : AppCompatActivity() {
     private fun populateActivity(detail: DetailArticle) {
         with(binding) {
             if (detail.article.image != null) {
+                val decodedImage = Base64.decode(detail.article.image, Base64.DEFAULT)
                 Glide.with(this@DetailNewsActivity)
-                    .load(detail.article.image)
+                    .load(decodedImage)
                     .into(ivNews)
             } else {
                 Glide.with(this@DetailNewsActivity)
@@ -46,7 +52,7 @@ class DetailNewsActivity : AppCompatActivity() {
             }
 
             tvContent.text = detail.article.article
-            supportActionBar?.title = detail.article.title
+            collapsingToolbarLayout.title = detail.article.title
         }
     }
 }
