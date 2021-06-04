@@ -7,13 +7,10 @@ import com.overheat.capstoneproject.core.data.source.local.LocalDataSource
 import com.overheat.capstoneproject.core.data.source.remote.RemoteDataSource
 import com.overheat.capstoneproject.core.data.source.remote.network.ApiResponse
 import com.overheat.capstoneproject.core.data.source.remote.response.ArticleResponse
-import com.overheat.capstoneproject.core.data.source.remote.response.DiagnoseResponse
 import com.overheat.capstoneproject.core.data.source.remote.response.FaqResponse
 import com.overheat.capstoneproject.core.domain.model.Article
 import com.overheat.capstoneproject.core.domain.model.DetailArticle
-import com.overheat.capstoneproject.core.domain.model.Diagnose
 import com.overheat.capstoneproject.core.domain.model.Faq
-import com.overheat.capstoneproject.core.domain.model.Result
 import com.overheat.capstoneproject.core.domain.repository.ISkinCancerRepository
 import com.overheat.capstoneproject.core.utils.AppExecutors
 import com.overheat.capstoneproject.core.utils.DataMapper
@@ -94,135 +91,53 @@ class SkinCancerRepository(
 
     override suspend fun sendComment(articleId: Int, comment: String) : Boolean {
         try {
-            when (val response = remoteDataSource.sendComment(articleId, comment)) {
+            return when (val response = remoteDataSource.sendComment(articleId, comment)) {
                 is ApiResponse.Success -> {
-                    return true
+                    true
                 }
                 is ApiResponse.Error -> {
                     Log.e("sendComment", response.errorMessage)
+                    false
                 }
-                else -> {}
-            }
-        } catch (e: Exception) {
-            Log.e("Repository", e.toString())
-        }
-
-        return false
-    }
-
-    override fun getAllHistoryDiagnose(userId: Int): Flow<Resource<List<Diagnose>>> {
-        return object : NetworkBoundResource<List<Diagnose>, List<DiagnoseResponse>>(appExecutors) {
-            override fun loadFromDB(): Flow<List<Diagnose>> {
-                return localDataSource.getAllUserDiagnose(userId).map {
-                    DataMapper.mapEntityToDomainDiagnose(it)
-                }
-            }
-
-            override fun shouldFetch(data: List<Diagnose>?): Boolean {
-                return data == null || data.isEmpty()
-            }
-
-            override suspend fun createCall(): Flow<ApiResponse<List<DiagnoseResponse>>> {
-                return remoteDataSource.getAllHistoryDiagnose()
-            }
-
-            override suspend fun saveCallResult(data: List<DiagnoseResponse>) {
-                val listDiagnose = DataMapper.mapResponseToEntityDiagnose(data)
-                localDataSource.insertAllDiagnose(listDiagnose)
-            }
-        }.asFlow()
-    }
-
-    override fun getResultFromImage(image: String): Result? {
-        var result: Result? = null
-
-        try {
-            appExecutors.networkIO().execute {
-                when (val response = remoteDataSource.getResultFromImage(image)) {
-                    is ApiResponse.Success -> {
-                        result = DataMapper.mapResponseToDomainResult(response.data)
-                    }
-                    is ApiResponse.Error -> {
-                        Log.e("getResultFromImage", response.errorMessage)
-                    }
-                    else -> {}
+                else -> {
+                    false
                 }
             }
         } catch (e: Exception) {
             Log.e("Repository", e.toString())
+            return false
         }
-
-        return result
-    }
-
-    override suspend fun getDiagnoseResult(resultId: Int): Diagnose? {
-        var diagnose: Diagnose? = null
-
-        try {
-            when (val response = remoteDataSource.getDiagnoseResult(resultId)) {
-                is ApiResponse.Success -> {
-                    diagnose = DataMapper.mapResponseToDomainDiagnose(response.data)
-                }
-                is ApiResponse.Error -> {
-                    Log.e("getDiagnoseResult", response.errorMessage)
-                }
-                else -> {}
-            }
-        } catch (e: Exception) {
-            Log.e("Repository", e.toString())
-        }
-
-        return diagnose
     }
 
     override fun getActiveToken(email: String, passHash: String) {
-        try {
-            when (val response = remoteDataSource.getActiveToken(email, passHash)) {
-                is ApiResponse.Success -> {
-                    sharedPreferences.setToken(response.data.token, response.data.isValid)
-                }
-                is ApiResponse.Error -> {
-                    Log.e("getActiveToken", response.errorMessage)
-                }
-                else -> {}
+        remoteDataSource.getActiveTokenVoid(email, passHash) {
+            if (it != null) {
+                sharedPreferences.setToken(it.token, it.isValid)
             }
-        } catch (e: Exception) {
-            Log.e("Repository", e.toString())
         }
     }
 
     override fun addNewUser(name: String, email: String, passHash: String) {
-        try {
-            when (val response = remoteDataSource.addNewUser(name, email, passHash)) {
-                is ApiResponse.Success -> {
-                    val userEntity = DataMapper.mapResponseToEntityUser(response.data)
-                    localDataSource.addNewUser(userEntity)
+        remoteDataSource.addNewUserVoid(name, email, passHash) {
+            if (it != null) {
+                sharedPreferences.setName(it.name)
+                sharedPreferences.setEmail(it.email)
 
-                    sharedPreferences.setEmail(userEntity.email)
-                }
-                is ApiResponse.Error -> {
-                    Log.e("addNewUser", response.errorMessage)
-                }
-                else -> {}
+                // Add to database
+//                localDataSource.addNewUser()
             }
-        } catch (e: Exception) {
-            Log.e("Repository", e.toString())
         }
     }
 
     override fun userLogout() {
-        try {
-            when (val response = remoteDataSource.userLogout()) {
-                is ApiResponse.Success -> {
-                    // Close the app
-                }
-                is ApiResponse.Error -> {
-                    Log.e("userLogout", response.errorMessage)
-                }
-                else -> {}
+        remoteDataSource.userLogoutVoid {
+            if (it != null) {
+                sharedPreferences.setToken(it.token, it.isValid)
             }
-        } catch (e: Exception) {
-            Log.e("Repository", e.toString())
         }
+    }
+
+    override fun getUserName(): String? {
+        return sharedPreferences.getName()
     }
 }

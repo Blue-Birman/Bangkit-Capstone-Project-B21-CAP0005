@@ -43,7 +43,8 @@ class HomeFragment : Fragment() {
 
     private fun fillHomeFragment() {
         with(binding) {
-            tvWelcomeUser.text = context?.resources?.getString(R.string.welcome_guest, "Guest")
+            val username = viewModel.username()
+            tvWelcomeUser.text = context?.resources?.getString(R.string.welcome_guest, username)
             tvWelcomeText.text = "lorem ipsum dolor sit amet"
         }
     }

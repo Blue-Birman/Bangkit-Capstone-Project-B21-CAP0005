@@ -17,4 +17,8 @@ class HomeViewModel(private val useCase: SkinCancerUseCase) : ViewModel() {
     fun articles(): LiveData<Resource<List<Article>>> {
         return useCase.getAllArticles().asLiveData()
     }
+
+    fun username(): String {
+        return useCase.getUserName() ?: "Guest"
+    }
 }

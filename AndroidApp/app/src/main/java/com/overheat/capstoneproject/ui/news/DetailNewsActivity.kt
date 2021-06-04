@@ -28,12 +28,11 @@ class DetailNewsActivity : AppCompatActivity() {
 
         val articleId = intent.getIntExtra(ARTICLE_ID, 0)
         viewModel.detailArticle(articleId)
+        binding.progressBarDetailNews.visibility = View.VISIBLE
         viewModel.detailArticle.observe(this, { data ->
             if (data != null) {
                 binding.progressBarDetailNews.visibility = View.GONE
                 populateActivity(data)
-            } else {
-                binding.progressBarDetailNews.visibility = View.VISIBLE
             }
         })
     }
