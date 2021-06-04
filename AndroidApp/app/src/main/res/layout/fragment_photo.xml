@@ -10,13 +10,15 @@
         android:id="@+id/iv_photo"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginTop="15dp"
         android:contentDescription="@string/photo_iv_desc"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_image_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4" />
 
     <Button
         android:id="@+id/btn_capture"
