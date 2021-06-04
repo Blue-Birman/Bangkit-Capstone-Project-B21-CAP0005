@@ -35,7 +35,7 @@
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:fontFamily="sans-serif"
-                android:hint="@string/hint_comments"
+                android:hint="@string/lbl_hint_comments"
                 android:gravity="start"
                 android:inputType="text|textNoSuggestions"
                 android:importantForAutofill="no" />
@@ -50,7 +50,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:textColor="@color/white"
                 android:textSize="14sp"
-                android:text="@string/button_send" />
+                android:text="@string/lbl_send" />
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
@@ -79,7 +79,7 @@
                     android:textColor="@color/black"
                     android:fontFamily="sans-serif"
                     android:textSize="14sp"
-                    android:text="@string/comments_alert" />
+                    android:text="@string/lbl_comments_alert" />
 
                 <Button
                     android:id="@+id/btn_log_in"
@@ -91,7 +91,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:text="@string/button_log_in" />
+                    android:text="@string/lbl_login" />
 
                 <Button
                     android:id="@+id/btn_create_account"
@@ -103,7 +103,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:textColor="@color/white"
                     android:textSize="14sp"
-                    android:text="@string/button_create_account" />
+                    android:text="@string/lbl_create_account" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
