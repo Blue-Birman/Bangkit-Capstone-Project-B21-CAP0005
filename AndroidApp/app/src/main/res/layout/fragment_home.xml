@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:iconifiedByDefault="false"
-            app:queryHint="@string/search_hint"
+            app:queryHint="@string/lbl_search_hint"
             app:layout_constraintTop_toBottomOf="@id/tv_welcome_text"
             app:layout_constraintStart_toStartOf="parent" />
 

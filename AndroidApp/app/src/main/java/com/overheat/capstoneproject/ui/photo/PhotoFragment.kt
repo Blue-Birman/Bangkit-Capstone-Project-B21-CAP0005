@@ -133,7 +133,7 @@ class PhotoFragment : Fragment() {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
 
         val imageBytes = byteArrayOutputStream.toByteArray()
-        val imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT)
+        val imageString = Base64.encodeToString(imageBytes, Base64.NO_PADDING)
 
         return imageString.replace("\n","")
     }

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/subtitle_profile"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <TableRow android:layout_marginBottom="8dp">
+
+            <TextView
+                style="@style/ProfileLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_full_name" />
+
+            <TextView
+                android:id="@+id/tv_full_name"
+                style="@style/ProfileLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                tools:text="@string/lbl_full_name" />
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="8dp">
+
+            <TextView
+                style="@style/ProfileLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_sex" />
+
+            <TextView
+                android:id="@+id/tv_sex"
+                style="@style/ProfileLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                tools:text="@string/lbl_sex" />
+        </TableRow>
+
+        <TableRow android:layout_marginBottom="8dp">
+
+            <TextView
+                style="@style/ProfileLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lbl_date_of_birth" />
+
+            <TextView
+                android:id="@+id/tv_date_of_birth"
+                style="@style/ProfileLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                tools:text="@string/lbl_date_of_birth" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                style="@style/ProfileLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:text="@string/lbl_email" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                style="@style/ProfileLabelStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                tools:text="@string/lbl_email" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/subtitle_history"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        tools:listitem="@layout/items_history" />
+</LinearLayout>

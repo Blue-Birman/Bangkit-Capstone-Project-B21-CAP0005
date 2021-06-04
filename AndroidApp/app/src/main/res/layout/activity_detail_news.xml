@@ -85,7 +85,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_like_blue"
-                    android:contentDescription="@string/like_button"
+                    android:contentDescription="@string/lbl_like_button"
                     android:clickable="true"
                     android:focusable="true" />
 

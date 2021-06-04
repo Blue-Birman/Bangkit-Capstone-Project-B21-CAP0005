@@ -16,4 +16,9 @@
         android:icon="@drawable/ic_news_blue"
         android:title="@string/title_news" />
 
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_account_circle_blue"
+        android:title="@string/title_profile"/>
+
 </menu>
