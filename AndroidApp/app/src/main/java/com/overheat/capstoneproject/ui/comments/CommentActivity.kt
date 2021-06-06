@@ -73,10 +73,14 @@ class CommentActivity : AppCompatActivity() {
 
             binding.btnLogIn.setOnClickListener {
                 val intent = Intent(this@CommentActivity, MainActivity::class.java)
+                intent.putExtra(MainActivity.EXTRA_FRAGMENT, 4)
+                intent.putExtra(MainActivity.EXTRA_TYPE, 2)
                 startActivity(intent)
             }
             binding.btnCreateAccount.setOnClickListener {
                 val intent = Intent(this@CommentActivity, MainActivity::class.java)
+                intent.putExtra(MainActivity.EXTRA_FRAGMENT, 4)
+                intent.putExtra(MainActivity.EXTRA_TYPE, 3)
                 startActivity(intent)
             }
         }

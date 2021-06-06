@@ -10,10 +10,12 @@ interface ISkinCancerRepository {
 
     fun getAllFaqs() : Flow<Resource<List<Faq>>>
     fun getAllArticles() : Flow<Resource<List<Article>>>
-    fun getDetailArticle(articleId: Int) : DetailArticle?
     suspend fun sendComment(articleId: Int, comment: String) : Boolean
     fun getActiveToken(email: String, passHash: String)
     fun addNewUser(name: String, email: String, passHash: String)
     fun userLogout()
     fun getUserName() : String?
+    fun getUserEmail() : String?
+    fun getUserPasswordHash() : String?
+    fun setUser(name: String, email: String, passHash: String, token: String, isValid: Boolean)
 }

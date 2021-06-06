@@ -15,4 +15,12 @@
             <solid android:color="@color/light_blue" />
         </shape>
     </item>
+
+    <item android:state_enabled="false">
+        <shape>
+            <corners android:radius="8dp" />
+            <stroke android:color="@color/black" android:width="2dp" />
+            <solid android:color="@color/light_grey" />
+        </shape>
+    </item>
 </selector>

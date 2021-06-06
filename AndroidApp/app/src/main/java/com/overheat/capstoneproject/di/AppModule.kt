@@ -31,7 +31,7 @@ val viewModelModule = module {
         DetailNewsViewModel(get())
     }
     viewModel {
-        ProfileViewModel(get())
+        ProfileViewModel(get(), get())
     }
     viewModel {
         CommentViewModel(get(), get())

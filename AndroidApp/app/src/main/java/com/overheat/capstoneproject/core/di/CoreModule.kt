@@ -45,7 +45,7 @@ val remoteDataSourceModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://34.101.199.61:5000/")
+            .baseUrl("http://34.101.238.135:5000/")
             .addConverterFactory(GsonConverterFactory.create(
                 GsonBuilder().serializeNulls().create()
             ))

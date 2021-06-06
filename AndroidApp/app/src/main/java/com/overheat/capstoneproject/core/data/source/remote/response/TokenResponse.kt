@@ -7,8 +7,11 @@ data class TokenResponse(
     @field:SerializedName("id")
     val id: Int,
 
-    @field:SerializedName("user_id")
-    val userId: Int,
+    @field:SerializedName("name")
+    val name: String,
+
+    @field:SerializedName("email")
+    val email: String,
 
     @field:SerializedName("token")
     val token: String,

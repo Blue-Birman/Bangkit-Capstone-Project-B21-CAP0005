@@ -123,8 +123,10 @@ class RemoteDataSource(
 
     fun getResultFromImageVoid(image: String, onResult: (ResultResponse?) -> Unit) {
         val bodyJson = JSONObject()
-        bodyJson.put("email", JSONObject.NULL)
-        bodyJson.put("token", JSONObject.NULL)
+        val email = if (sharedPreferences.getEmail() == null) JSONObject.NULL else sharedPreferences.getEmail()
+        bodyJson.put("email", email)
+        val token = if (sharedPreferences.getToken() == null) JSONObject.NULL else sharedPreferences.getToken()
+        bodyJson.put("token", token)
         bodyJson.put("image", image)
 
         val requestBody = bodyJson.toString()

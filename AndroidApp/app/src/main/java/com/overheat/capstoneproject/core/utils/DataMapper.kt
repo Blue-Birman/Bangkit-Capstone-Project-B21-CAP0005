@@ -108,6 +108,24 @@ object DataMapper {
         return listDiagnose
     }
 
+    fun mapResponseToDomainListDiagnose(input: List<DiagnoseResponse>) : List<Diagnose> {
+        val listDiagnose = ArrayList<Diagnose>()
+
+        input.map {
+            val diagnose = Diagnose(
+                id = it.id,
+                userId = it.userId,
+                image = it.image,
+                cancerProba = it.cancerProba,
+                dateAdded = it.dateAdded
+            )
+
+            listDiagnose.add(diagnose)
+        }
+
+        return listDiagnose
+    }
+
     fun mapResponseToDomainDiagnose(input: DiagnoseResponse) : Diagnose =
         Diagnose(
             id = input.id,

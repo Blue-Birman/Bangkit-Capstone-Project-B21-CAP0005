@@ -3,15 +3,16 @@ package com.overheat.capstoneproject.core.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.overheat.capstoneproject.core.domain.model.Diagnose
 import com.overheat.capstoneproject.core.domain.model.History
 import com.overheat.capstoneproject.databinding.ItemsHistoryBinding
 
 class ProfileHistoryAdapter
     : RecyclerView.Adapter<ProfileHistoryAdapter.ProfileHistoryViewHolder>() {
 
-    private val listHistory = ArrayList<History>()
+    private val listHistory = ArrayList<Diagnose>()
 
-    fun setHistory(listHistory: List<History>?) {
+    fun setHistory(listHistory: List<Diagnose>?) {
         if (listHistory == null) return
 
         this.listHistory.clear()
@@ -19,10 +20,10 @@ class ProfileHistoryAdapter
         notifyDataSetChanged()
     }
     inner class ProfileHistoryViewHolder(private val binding: ItemsHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(history: History) {
+        fun bind(history: Diagnose) {
             with(binding) {
                 tvActivity.text = history.dateAdded
-                tvDetailActivity.text = history.activity
+                tvDetailActivity.text = history.cancerProba.toString()
             }
         }
     }

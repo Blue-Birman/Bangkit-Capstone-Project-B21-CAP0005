@@ -8,6 +8,7 @@ class SkinCancerPreferences(context: Context) {
         private const val PREFS_NAME = "skin_cancer_prefs"
         private const val EMAIL_NAME = "email_prefs"
         private const val NAME_NAME = "name_prefs"
+        private const val PASSWORD_HASH_NAME = "password_hash_prefs"
         private const val TOKEN_NAME = "token_prefs"
         private const val IS_VALID_NAME = "is_valid_prefs"
     }
@@ -33,6 +34,12 @@ class SkinCancerPreferences(context: Context) {
         editor.apply()
     }
 
+    fun setPassHash(passHash: String) {
+        val editor = preferences.edit()
+        editor.putString(PASSWORD_HASH_NAME, passHash)
+        editor.apply()
+    }
+
     fun getEmail() : String? =
         preferences.getString(EMAIL_NAME, null)
 
@@ -46,4 +53,7 @@ class SkinCancerPreferences(context: Context) {
 
         return null
     }
+
+    fun getPassHash() : String? =
+        preferences.getString(PASSWORD_HASH_NAME, null)
 }

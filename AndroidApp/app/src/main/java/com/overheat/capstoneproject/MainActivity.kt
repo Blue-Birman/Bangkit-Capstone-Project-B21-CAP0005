@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_FRAGMENT = "extra_fragment"
         const val EXTRA_TYPE = "extra_type"
+        var profileType = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +38,8 @@ class MainActivity : AppCompatActivity() {
             val type = extras.getInt(EXTRA_TYPE, 0)
 
             if (fragment == 4) {
+                profileType = type
+                navController.navigate(R.id.navigation_profile)
             }
         }
     }

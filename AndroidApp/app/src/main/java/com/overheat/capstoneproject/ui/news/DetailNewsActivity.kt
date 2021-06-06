@@ -78,6 +78,7 @@ class DetailNewsActivity : AppCompatActivity() {
 
             imgComment.setOnClickListener {
                 val intent = Intent(this@DetailNewsActivity, CommentActivity::class.java)
+                intent.putExtra(CommentActivity.ARTICLE_ID_EXTRA, detail.article.id)
                 startActivity(intent)
             }
             bottomNavigation.visibility = View.VISIBLE

@@ -2,7 +2,6 @@ package com.overheat.capstoneproject.core.domain.usecase
 
 import com.overheat.capstoneproject.core.data.Resource
 import com.overheat.capstoneproject.core.domain.model.Article
-import com.overheat.capstoneproject.core.domain.model.DetailArticle
 import com.overheat.capstoneproject.core.domain.model.Faq
 import com.overheat.capstoneproject.core.domain.repository.ISkinCancerRepository
 import kotlinx.coroutines.flow.Flow
@@ -17,10 +16,6 @@ class SkinCancerInteractor(
 
     override fun getAllArticles(): Flow<Resource<List<Article>>> {
         return repository.getAllArticles()
-    }
-
-    override fun getDetailArticle(articleId: Int): DetailArticle? {
-        return repository.getDetailArticle(articleId)
     }
 
     override suspend fun sendComment(articleId: Int, comment: String): Boolean {
@@ -41,5 +36,17 @@ class SkinCancerInteractor(
 
     override fun getUserName() : String? {
         return repository.getUserName()
+    }
+
+    override fun getUserEmail(): String? {
+        return repository.getUserEmail()
+    }
+
+    override fun getUserPasswordHash(): String? {
+        return repository.getUserPasswordHash()
+    }
+
+    override fun setUserLogin(name: String, email: String, passHash: String, token: String, isValid: Boolean) {
+        repository.setUser(name, email, passHash, token, isValid)
     }
 }

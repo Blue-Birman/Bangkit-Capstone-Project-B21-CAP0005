@@ -9,16 +9,13 @@ import com.overheat.capstoneproject.core.data.source.remote.network.ApiResponse
 import com.overheat.capstoneproject.core.data.source.remote.response.ArticleResponse
 import com.overheat.capstoneproject.core.data.source.remote.response.FaqResponse
 import com.overheat.capstoneproject.core.domain.model.Article
-import com.overheat.capstoneproject.core.domain.model.DetailArticle
 import com.overheat.capstoneproject.core.domain.model.Faq
 import com.overheat.capstoneproject.core.domain.repository.ISkinCancerRepository
 import com.overheat.capstoneproject.core.utils.AppExecutors
 import com.overheat.capstoneproject.core.utils.DataMapper
 import com.overheat.capstoneproject.core.utils.SkinCancerPreferences
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class SkinCancerRepository(
@@ -74,24 +71,6 @@ class SkinCancerRepository(
         }.asFlow()
     }
 
-    override fun getDetailArticle(articleId: Int): DetailArticle? {
-        var detailArticle: DetailArticle? = null
-
-        try {
-
-                remoteDataSource.getDetailArticleVoid(articleId) {
-                    if (it != null) {
-                        detailArticle = DataMapper.mapResponseToDomainDetailArticle(it)
-                    }
-                }
-        } catch (e: Exception) {
-            Log.e("Repository", e.toString())
-        }
-
-        Log.d("Repository", "DetailArticle: ${detailArticle.toString()}")
-        return detailArticle
-    }
-
     override suspend fun sendComment(articleId: Int, comment: String) : Boolean {
         try {
             return when (val response = remoteDataSource.sendComment(articleId, comment)) {
@@ -116,6 +95,9 @@ class SkinCancerRepository(
         remoteDataSource.getActiveTokenVoid(email, passHash) {
             if (it != null) {
                 sharedPreferences.setToken(it.token, it.isValid)
+                sharedPreferences.setEmail(it.email)
+                sharedPreferences.setName(it.name)
+                sharedPreferences.setPassHash(passHash)
             }
         }
     }
@@ -125,6 +107,7 @@ class SkinCancerRepository(
             if (it != null) {
                 sharedPreferences.setName(it.name)
                 sharedPreferences.setEmail(it.email)
+                sharedPreferences.setPassHash(it.passHash)
 
                 // Add to database
 //                localDataSource.addNewUser()
@@ -142,5 +125,20 @@ class SkinCancerRepository(
 
     override fun getUserName(): String? {
         return sharedPreferences.getName()
+    }
+
+    override fun getUserEmail(): String? {
+        return sharedPreferences.getEmail()
+    }
+
+    override fun getUserPasswordHash(): String? {
+        return sharedPreferences.getPassHash()
+    }
+
+    override fun setUser(name: String, email: String, passHash: String, token: String, isValid: Boolean) {
+        sharedPreferences.setEmail(email)
+        sharedPreferences.setName(name)
+        sharedPreferences.setPassHash(passHash)
+        sharedPreferences.setToken(token, isValid)
     }
 }

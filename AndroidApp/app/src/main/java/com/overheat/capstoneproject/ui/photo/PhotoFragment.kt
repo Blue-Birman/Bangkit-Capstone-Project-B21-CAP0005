@@ -130,10 +130,10 @@ class PhotoFragment : Fragment() {
         val byteArrayOutputStream = ByteArrayOutputStream()
         val bitmap =
             Bitmap.createScaledBitmap((binding.ivPhoto.drawable).toBitmap(), 150, 150, true)
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream)
 
         val imageBytes = byteArrayOutputStream.toByteArray()
-        val imageString = Base64.encodeToString(imageBytes, Base64.NO_PADDING)
+        val imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT)
 
         return imageString.replace("\n","")
     }

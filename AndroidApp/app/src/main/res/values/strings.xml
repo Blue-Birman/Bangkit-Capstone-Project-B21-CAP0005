@@ -37,4 +37,8 @@
     <string name="lbl_like_button">Like Button</string>
     <string name="text_likes">%1$s Likes</string>
     <string name="text_comments">%1$s Comments</string>
+    <string name="link_login_1">Already have an account?</string>
+    <string name="link_login_2"><u>Log In now.</u></string>
+    <string name="link_register_1">Haven\'t create an account?</string>
+    <string name="link_register_2"><u>Create Now.</u></string>
 </resources>

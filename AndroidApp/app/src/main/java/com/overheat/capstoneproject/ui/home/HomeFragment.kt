@@ -104,7 +104,6 @@ class HomeFragment : Fragment() {
                     Glide.with(this@HomeFragment)
                         .load(decodedImage)
                         .fitCenter()
-                        .placeholder(R.drawable.no_image)
                         .into(imageView)
                 } else {
                     Glide.with(this@HomeFragment)
