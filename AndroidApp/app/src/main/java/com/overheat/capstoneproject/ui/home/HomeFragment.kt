@@ -1,5 +1,6 @@
 package com.overheat.capstoneproject.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Base64
 import android.view.*
@@ -11,6 +12,7 @@ import com.overheat.capstoneproject.core.data.Resource
 import com.overheat.capstoneproject.core.domain.model.Article
 import com.overheat.capstoneproject.core.ui.HomeListFaqAdapter
 import com.overheat.capstoneproject.databinding.FragmentHomeBinding
+import com.overheat.capstoneproject.ui.news.DetailNewsActivity
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
@@ -97,10 +99,16 @@ class HomeFragment : Fragment() {
     }
 
     private fun fillImageCarousel(listArticle: ArrayList<Article>) {
+        var size = listArticle.size
+        if (size > 5) {
+            size = 5
+        }
+
         with(binding.carouselView) {
             setImageListener { position, imageView ->
+                val newestNews = listArticle.size - position - 1
                 if (listArticle[position].image != null) {
-                    val decodedImage = Base64.decode(listArticle[position].image, Base64.DEFAULT)
+                    val decodedImage = Base64.decode(listArticle[newestNews].image, Base64.DEFAULT)
                     Glide.with(this@HomeFragment)
                         .load(decodedImage)
                         .fitCenter()
@@ -111,8 +119,14 @@ class HomeFragment : Fragment() {
                         .fitCenter()
                         .into(imageView)
                 }
+
+                imageView.setOnClickListener {
+                    val intent = Intent(context, DetailNewsActivity::class.java)
+                    intent.putExtra(DetailNewsActivity.ARTICLE_ID, listArticle[newestNews].id)
+                    startActivity(intent)
+                }
             }
-            pageCount = listArticle.size
+            pageCount = size
         }
     }
 }
