@@ -24,18 +24,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_welcome_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:textSize="12sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="8dp"
-            tools:text="@tools:sample/lorem"
-            app:layout_constraintTop_toBottomOf="@id/tv_welcome_user"
-            app:layout_constraintStart_toStartOf="parent" />
-
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
             android:layout_width="match_parent"
@@ -43,7 +31,7 @@
             android:layout_marginTop="8dp"
             app:iconifiedByDefault="false"
             app:queryHint="@string/lbl_search_hint"
-            app:layout_constraintTop_toBottomOf="@id/tv_welcome_text"
+            app:layout_constraintTop_toBottomOf="@id/tv_welcome_user"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
