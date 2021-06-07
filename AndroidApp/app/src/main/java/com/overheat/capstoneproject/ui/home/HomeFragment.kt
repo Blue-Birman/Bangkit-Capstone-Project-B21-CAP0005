@@ -7,6 +7,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.overheat.capstoneproject.R
 import com.overheat.capstoneproject.core.data.Resource
 import com.overheat.capstoneproject.core.domain.model.Article
@@ -104,14 +105,18 @@ class HomeFragment : Fragment() {
             size = 5
         }
 
+        val width = resources.displayMetrics.widthPixels - 32
+        val height = 200
         with(binding.carouselView) {
             setImageListener { position, imageView ->
+                imageView.adjustViewBounds = true
+
                 val newestNews = listArticle.size - position - 1
-                if (listArticle[position].image != null) {
+                if (listArticle[newestNews].image != null) {
                     val decodedImage = Base64.decode(listArticle[newestNews].image, Base64.DEFAULT)
                     Glide.with(this@HomeFragment)
                         .load(decodedImage)
-                        .fitCenter()
+                        .apply(RequestOptions.overrideOf(width, height))
                         .into(imageView)
                 } else {
                     Glide.with(this@HomeFragment)
