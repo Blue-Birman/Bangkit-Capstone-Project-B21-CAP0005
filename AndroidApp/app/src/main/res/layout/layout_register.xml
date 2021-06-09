@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/lbl_create_account"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_name"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_form_field"
+        android:hint="@string/lbl_full_name"
+        android:inputType="textPersonName"
+        android:maxLines="1" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_email"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_form_field"
+        android:hint="@string/lbl_email"
+        android:inputType="textEmailAddress"
+        android:maxLines="1" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_form_field"
+        android:hint="@string/lbl_password"
+        android:inputType="textPassword"
+        android:maxLines="1" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/et_confirm_password"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_form_field"
+        android:hint="@string/lbl_confirm_pass"
+        android:inputType="textPassword"
+        android:maxLines="1" />
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/bg_button_log_in"
+        android:text="@string/lbl_create_account" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textAlignment="textEnd"
+            android:textColor="@color/black"
+            android:text="@string/link_login_1" />
+
+        <TextView
+            android:id="@+id/tv_link_login"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginStart="4dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/blue"
+            android:text="@string/link_login_2"
+            android:clickable="true"
+            android:focusable="true" />
+    </LinearLayout>
+</LinearLayout>

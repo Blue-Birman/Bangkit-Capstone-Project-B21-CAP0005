@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">Skin Cancer Detection</string>
+    <string name="title_home">Home</string>
+    <string name="title_news">News</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_photo">Photo</string>
+
+    <string name="welcome_guest">Welcome %1$s!!</string>
+    <string name="subtitle_recommendation">Our Article Recommendation</string>
+    <string name="subtitle_faq">FAQ</string>
+    <string name="subtitle_comments">Comments</string>
+    <string name="subtitle_profile">Profile:</string>
+    <string name="subtitle_history">History:</string>
+
+    <string name="lbl_take_pic">Take photo</string>
+    <string name="photo_iv_desc">Image captured</string>
+    <string name="result">Result : </string>
+    <string name="warning">Warning</string>
+    <string name="close">Close pop up</string>
+
+    <string name="news_iv_desc">News photo</string>
+    <string name="content_example">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of </string>
+
+    <string name="lbl_full_name">Full Name</string>
+    <string name="lbl_sex">Sex</string>
+    <string name="lbl_date_of_birth">Date of Birth</string>
+    <string name="lbl_email">Email</string>
+    <string name="lbl_search_hint">Search About Skin Cancer</string>
+    <string name="lbl_hint_comments">Enter your comments.</string>
+    <string name="lbl_comments_alert">You must Log In to comment!!</string>
+
+    <string name="lbl_send">Send</string>
+    <string name="lbl_password">Password</string>
+    <string name="lbl_confirm_pass">Confirm Password</string>
+    <string name="lbl_login">Login</string>
+    <string name="lbl_create_account">Create Account</string>
+    <string name="lbl_like_button">Like Button</string>
+    <string name="text_likes">%1$s Likes</string>
+    <string name="text_comments">%1$s Comments</string>
+    <string name="link_login_1">Already have an account?</string>
+    <string name="link_login_2"><u>Log In now.</u></string>
+    <string name="link_register_1">Haven\'t create an account?</string>
+    <string name="link_register_2"><u>Create Now.</u></string>
+</resources>
