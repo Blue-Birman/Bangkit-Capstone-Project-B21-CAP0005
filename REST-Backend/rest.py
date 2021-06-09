@@ -177,8 +177,8 @@ def articles_route():
         articles = Article.query.order_by(desc(Article.date_added)).all()
         for article in articles:
             if article.image != None:
-                article.image = None
-                article.article=None
+                article.image =blob2string_base64(article.image)
+            article.article=None
 
         response = make_response(
             json.dumps(articles),
@@ -265,8 +265,18 @@ def login_route():
         is_auth = auth_pass(content["email"], content["pass_hash"])  
         if is_auth :
             token = generate_token(content["email"])
+            user = User.query.filter_by(email=content["email"]).first()
+            json_object = {
+                "date_added":token.date_added,
+                "id":token.id,
+                "is_active":token.is_active,
+                "token":token.token,
+                "name": user.name,
+                "email": user.email
+
+            }
             response = make_response(
-                json.dumps(token),
+                json.dumps(json_object),
                 200
             )
             return response
